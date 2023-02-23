@@ -23,7 +23,13 @@ const salao = new Schema({
     cep: String,
     numero: String,
     pais: String,
-  }, 
+  },  
+  status: {
+    type: String,
+    required: true,
+    enum: ['A', 'I', 'E'],
+    default: 'A'
+  },
   dataCadastro: {
     type: Date, 
     default: Date.now,

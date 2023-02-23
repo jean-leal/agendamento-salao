@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const colaboradorServico = new Schema({
-  salaoId: {
+  colaboradorId: {
     type: mongoose.Types.ObjectId,
-    ref: 'Salao',
+    ref: 'Colaborador',
     required: true,
   }, 
   servicoId: [
@@ -14,10 +14,15 @@ const colaboradorServico = new Schema({
     required: true,
    },
   ],
+  salaoId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Salao',
+    required: true,
+   },
   status: {
     type: String,
     required: true,
-    enum: ['A', 'I'],
+    enum: ['A', 'I', 'E'],
     default: 'A'
   }, 
   dataCadastro: {

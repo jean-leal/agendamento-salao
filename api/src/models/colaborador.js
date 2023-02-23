@@ -16,7 +16,13 @@ const colaborador = new Schema({
   },
   senha: {
     type: String,
-    required: [true, 'Senha é obrigatório.'],
+    default: null,
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: ['A', 'I', 'E'],
+    default: 'A'
   },
   foto: String,  
     
