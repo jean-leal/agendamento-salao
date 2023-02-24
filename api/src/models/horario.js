@@ -22,7 +22,7 @@ const horario = new Schema({
    },
   ], 
   dias: [{
-    type: [Number],
+    type: Number,
     required: true,
   }],
   inicio: {

@@ -128,15 +128,15 @@ router.get('/salao/:salaoId', async (req, res) =>{
       salaoId,
       status: { $ne: 'E' } // status diferente de "E"
     })
-    .populate('colaboradorId')
+    .populate({path: 'colaboradorId', select: '-senha' })
     .select('colaboradorId dataCadastro status')
 
     for (let vinculo of salaoColaboradores) {
       const especialidades = await ColaboradorServico.find({
         colaboradorId : vinculo.colaboradorId._id
         
-      }, console.log(salaoColaboradores));
-     
+      },);
+    
       listaColaboradores.push({
         ...vinculo._doc,
         especialidades

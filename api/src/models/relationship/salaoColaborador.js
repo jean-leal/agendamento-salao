@@ -7,13 +7,11 @@ const salaoColaborador = new Schema({
     ref: 'Salao',
     required: true,
   }, 
-  colaboradorId: [
-    {
+  colaboradorId: {
     type: mongoose.Types.ObjectId,
     ref: 'Colaborador',
     required: true,
    },
-  ],
   status: {
     type: String,
     required: true,

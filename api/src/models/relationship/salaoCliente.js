@@ -7,17 +7,15 @@ const salaoCliente = new Schema({
     ref: 'Salao',
     required: true,
   }, 
-  clienteId: [
-    {
+  clienteId: {
     type: mongoose.Types.ObjectId,
     ref: 'Cliente',
     required: true,
    },
-  ],
   status: {
     type: String,
     required: true,
-    enum: ['A', 'I'],
+    enum: ['A', 'I', 'E'],
     default: 'A'
   }, 
   dataCadastro: {
