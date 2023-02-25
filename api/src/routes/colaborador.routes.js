@@ -115,7 +115,7 @@ router.post('/filter', async (req, res) =>{
   } catch (err) {
     res.json({error: true, message: err.message});
   }
-})
+});
 
 router.get('/salao/:salaoId', async (req, res) =>{
   try {
@@ -157,5 +157,5 @@ router.get('/salao/:salaoId', async (req, res) =>{
   } catch (err) {
     res.json({error: true, message: err.message});
   }
-})
+});
 module.exports = router;
