@@ -16,7 +16,7 @@ const servico = new Schema({
     required: true
   },
   duracao: {
-    type: Number, // duração em minutos
+    type: Date, // duração em minutos
     required: true
   },
   descricao: {
