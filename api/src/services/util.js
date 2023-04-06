@@ -15,8 +15,6 @@ module.exports = {
     start = moment(start);
     end = moment(end);
 
-    console.log(start, end)
-
     while (end > start) {
       slices.push(start.format('HH:mm'));
 
@@ -27,7 +25,17 @@ module.exports = {
   },
   mergeDateTime: (date, time) => {
     const merged = `${moment(date).format('YYYY-MM-DD')}T${moment(time).format('HH:mm')}`;
-
     return merged;
+  },
+  splitByValue: (array, value) => {
+    let newArray = [[]];
+    array.forEach((item) => {
+      if (item !== value) {
+        newArray[newArray.length - 1].push(item);
+      } else {
+        newArray.push([]);
+      }      
+    });
+    return newArray;
   }
 }

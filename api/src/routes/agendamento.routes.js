@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const util = require('../services/util');
+const _ = require('lodash')
 
 const Colaborador = require('../models/colaborador');
 const Cliente = require('../models/cliente');
@@ -73,6 +74,7 @@ router.post('/dias-disponiveis', async (req, res) => {
     const horarios = await Horarios.find({salaoId});
 
     let agenda = [];
+    let colaboradores = []
     let lastDay = moment(data);
     
     // duração do serviço
@@ -118,16 +120,97 @@ router.post('/dias-disponiveis', async (req, res) => {
             ]
           }
         }
-  
-        agenda.push({
-          [lastDay.format('YYYY-MM-DD')]: todosHorariosDia,
-        });
+
+        // ocupação de cada especialista no dia
+        for (let colaboradorId of Object.keys(todosHorariosDia)){
+          // recuperar os agendamentos 
+          const agendamentos = Agendamento.find({
+            colaboradorId, 
+            data: {
+              $gte: moment(lastDay).startOf('day'),
+              $lte: moment(lastDay).endOf('day'),
+            },
+          })
+          .select('data servicoId -_id')
+          .populate('servicoId', 'duracao');
+
+          // recuperar os horarios agendados 
+          let horariosOcupados = (await agendamentos).map(agendamento => ({
+            inicio: moment(agendamento.data),
+            final: moment(agendamento.data).add(
+              util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')
+              ),
+              'minutes')
+          }));
+
+          // recuperar todos os slots entre os agendamentos 
+          horariosOcupados = horariosOcupados
+            .map(horario => 
+              util.sliceMinutes(
+                horario.inicio,
+                horario.final, 
+                util.SLOT_DURATION
+                )
+              )
+              .flat();   
+          // remomendo todos os horarios / slots ocupados 
+          let horariosLivres = util.splitByValue(todosHorariosDia[colaboradorId].map((horarioLivre) =>{
+            return horariosOcupados.includes(horarioLivre) ? '-' : horarioLivre;
+          }),
+          '-'
+          ).filter((space) => space.length > 0);
+          
+          // verificando de existe espaço suficiente no slot 
+          horariosLivres = horariosLivres.filter(
+            (horarios) => horarios.length >= servicoSlots
+          );
+
+          // verificando se os horarios dentro do horario tem a contidade necessaria
+          horariosLivres = horariosLivres.map((slot) => slot.filter(
+            (horario, index) => slot.length - index >= servicoSlots)
+          ).flat();
+          
+          //formatando horarios de 2 em 2
+          horariosLivres = _.chunk(horariosLivres, 2);
+
+          // remover colaborador caso não tenha nenhum espaço 
+          if (horariosLivres.length === 0) {
+            todosHorariosDia = _.omit(todosHorariosDia, colaboradorId);
+          } else {
+            todosHorariosDia[colaboradorId] = horariosLivres;
+          }
+        
+        }
+
+        // verificar se tem colaborador disponivel naquele dia
+        const totalColaborador = Object.keys(todosHorariosDia).length;
+
+        if(totalColaborador > 0){
+          colaboradores.push(Object.keys(todosHorariosDia));
+
+          agenda.push({
+            [lastDay.format('YYYY-MM-DD')]: todosHorariosDia,
+          });
+        } 
+      
       }
-      aula 3 4:02
+ 
       lastDay = lastDay.add(1, 'day')
     }
 
-    res.json({ error: false, agenda,  })
+    //recuperando dados dos colaboradores
+    colaboradores = _.uniq(colaboradores.flat());
+
+    colaboradores = await Colaborador.find({
+      _id: {$in: colaboradores},
+    }).select('nome');
+
+    colaboradores = colaboradores.map(c => ({
+      ...c._doc, 
+      nome: c.nome.split(' ')[0]
+    }))
+
+    res.json({ error: false,colaboradores, agenda })
 
   }catch (err) {
     res.json({ error: true, message: err.message });
