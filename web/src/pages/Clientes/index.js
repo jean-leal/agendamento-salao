@@ -1,15 +1,23 @@
+import { useEffect } from "react";
+import { Button } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
+import Table from "../../components/Table";
+import moment from "moment";
 
-import { Table } from 'rsuite';
 import Icon from '@mdi/react';
 import { mdiPlus } from '@mdi/js';
 
-const { Column, Cell, HeaderCell } = Table;
-const data = [
-  {nome: "joao", id: "1"},
-  {nome: "jose", id: "2"},
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { allClientes } from '../../store/modules/cliente/actions';
+
 const Clientes = () => {
+  const dispatch = useDispatch();
+  const { clientes } = useSelector(state => state.clientes)
+
+  useEffect(() =>{
+    dispatch(allClientes())
+  }, [dispatch]);
+
   return (
     <div className="col p-5 overflow-auto h-100 ">
       <div className="row">
@@ -23,26 +31,24 @@ const Clientes = () => {
               </button>
             </div>
           </div>
-          <Table
-            height={400}
-            data={data}
-            onRowClick={rowData => {
-              console.log(rowData);
-            }}
-          >
-            <Column width={60} align="center" fixed>
-              <HeaderCell>Id</HeaderCell>
-              <Cell dataKey="id" />
-            </Column>
-            <Column width={60} align="center" fixed>
-              <HeaderCell>Nome</HeaderCell>
-              <Cell dataKey="nome" />
-            </Column>
-          </Table>
+          <Table 
+            data={clientes}
+            config={[
+              {label: 'Nome', key: 'nome', width: 200, fixed: true },
+              {label: 'E-mail', key: 'email' , width: 200},
+              {label: 'Telefone', key: 'telefone' , width: 200},
+              {label: 'Data Cadastro', content: (cliente) => moment(cliente.dataCadastro).format('DD/MM/YYYY') , width: 200},
+              {label: 'Status', content: (cliente) => cliente.status == "A" ? "Ativo" : "Inativo", width: 200},
+
+            ]}
+            actions={(cliente) => (
+              <Button appearance="primary" size= "xs">Ver informações</Button>
+            )}
+            onRowClick={(cliente) => {alert(cliente.nome)}}/>
         </div>
       </div>
     </div>
   )
 }
-aula 04 2:28:20
+aula 05 inicio
 export default Clientes;
