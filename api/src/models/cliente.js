@@ -25,7 +25,8 @@ const cliente = new Schema({
     enum: ['A', 'I', 'E'],
     default: 'A'
   },
-  endereco: {
+  endereco: {    
+    logradouro: String,
     cidade: String,
     uf: String,
     cep: String,
