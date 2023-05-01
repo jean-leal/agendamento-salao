@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
 import Icon from '@mdi/react';
-import { mdiCalendarCheck, mdiAccountBadge } from '@mdi/js';
+import { mdiCalendarCheck, mdiAccountBadge, mdiCardAccountDetailsOutline } from '@mdi/js';
 
 
 
@@ -21,6 +21,12 @@ const Sidebar = () => {
           <Link to="/clientes" className={location.pathname === '/clientes' ? 'active' : ''}>
             <Icon path={mdiAccountBadge} size={1}/>
             <text>Clientes</text>
+          </Link>         
+        </li>
+        <li>
+          <Link to="/colaboradores" className={location.pathname === '/colaboradores' ? 'active' : ''}>
+            <Icon path={mdiCardAccountDetailsOutline} size={1}/>
+            <text>Colaboradores</text>
           </Link>         
         </li>
       </ul> 

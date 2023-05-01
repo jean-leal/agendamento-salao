@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Drawer, Modal } from "rsuite";
+import { Button, Drawer, Modal, TagPicker, TreePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Table from "../../components/Table";
 import moment from "moment";
@@ -9,44 +9,45 @@ import { mdiPlus, mdiAlertOutline } from '@mdi/js';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  allClientes,
-  updateCliente,
-  filterClientes,
-  addCliente,
-  unlinkCliente,
-} from '../../store/modules/cliente/actions';
+  allColaboradores,
+  updateColaborador,
+  filterColaboradores,
+  addColaborador,
+  unlinkColaborador,
+  allServicos,
+} from '../../store/modules/colaborador/actions';
 import ModalFooter from "rsuite/esm/Modal/ModalFooter";
 
-const Clientes = () => {
+const Colaboradores = () => {
   const dispatch = useDispatch();
-  const { clientes, cliente, behavior, form, components } = useSelector(state => state.cliente);
-
+  const { colaboradores, colaborador, behavior, form, components, servicos } = useSelector(state => state.colaborador);
   const setComponent = (component, state) => {
     dispatch(
-      updateCliente({
+      updateColaborador({
         components: { ...components, [component]: state },
       })
     );
   }
 
-  const setCliente = (key, value) => {
+  const setColaborador = (key, value) => {
     dispatch(
-      updateCliente({
-        cliente: { ...cliente, [key]: value },
+      updateColaborador({
+        colaborador: { ...colaborador, [key]: value },
       })
     );
   }
 
   const save = () => {
-    dispatch(addCliente());
+    dispatch(addColaborador());
   }
 
   const remove = () => {
-    dispatch(unlinkCliente());
+    dispatch(unlinkColaborador());
   }
 
   useEffect(() => {
-    dispatch(allClientes())
+    dispatch(allColaboradores())
+    dispatch(allServicos())
   }, [dispatch]);
 
   return (
@@ -57,29 +58,36 @@ const Clientes = () => {
         size="sm"
       >
         <Drawer.Body>
-          <h3>{behavior === "create" ? "Criar novo" : "Atualizar"} cliente</h3>
+          <h3>{behavior === "create" ? "Criar novo" : "Atualizar"} colaborador</h3>
           <div className="row mt-3">
             <div className="form-group col-12 mb-3">
               <b>E-mail</b>
               <div className="input-group">
                 <input
+                  disabled ={behavior === "update"}
                   type="email"
                   className="form-control"
-                  placeholder="E-mail do cliente"
-                  value={cliente.email}
-                  onChange={(e) => setCliente('email', e.target.value)}
+                  placeholder="E-mail do colaborador"
+                  value={colaborador.email}
+                  onChange={(e) => setColaborador('email', e.target.value)}
                 />
-                <div className="input-group-append">
-                  <Button
-                    appearance="primary"
-                    color="blue"
-                    loading={form.filtering}
-                    disabled={form.filtering}
-                    onClick={() => dispatch(filterClientes())}
-                  >
-                    Pesquisar
-                  </Button>
-                </div>
+                {behavior === 'create' && (
+                  <div className="input-group-append">
+                    <Button
+                      appearance="primary"
+                      color="blue"
+                      loading={form.filtering}
+                      disabled={form.filtering}
+                      onClick={() => {
+                        dispatch(
+                          filterColaboradores()
+                        );
+                      }}
+                    >
+                      Pesquisar
+                    </Button>
+                  </div>
+                )}                  
               </div>
             </div>
             <div className="form-group col-6">
@@ -87,122 +95,50 @@ const Clientes = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Nome do Cliente"
+                placeholder="Nome do colaborador"
                 disabled={form.disabled}
-                value={cliente.nome}
-                onChange={(e) => setCliente('nome', e.target.value)}
+                value={colaborador.nome}
+                onChange={(e) => setColaborador('nome', e.target.value)}
               />
             </div>
+            <div className="form-group col-6">
+              <b>Status</b>
+              <select
+                className="form-control"
+                disabled={form.disabled && behavior === 'create'}
+                value={colaborador.vinculo}
+                onChange={(e) => setColaborador('vinculo', e.target.value)}
+              >
+                <option value="A">Ativo</option>
+                <option value="I">Inativo</option>
+              </select>
+            </div> 
             <div className="form-group col-6">
               <b>Telefone / Whatsapp</b>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Telefone / Whatsapp do Cliente"
+                placeholder="Telefone / Whatsapp do colaborador"
                 disabled={form.disabled}
-                value={cliente.telefone}
-                onChange={(e) => setCliente('telefone', e.target.value)}
+                value={colaborador.telefone}
+                onChange={(e) => setColaborador('telefone', e.target.value)}
               />
-            </div>
-           
-            <div className="form-group col-3">
-              <b>CEP</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Digite o CEP"
-                disabled={form.disabled}
-                value={cliente.endereco.cep}
-                onChange={(e) =>
-                  setCliente('endereco', {
-                    ...cliente.endereco,
-                    cep: e.target.value,
-                  })
-                }
+            </div>     
+            <div className="col-12">
+              <b>Especialidades</b>
+              <TagPicker
+                size="lg"
+                block
+                data={ servicos }
+                disabled={form.disabled && behavior === 'create'}
+                value={colaborador.especialidades}
+                onChange={(especialidade) => setColaborador('especialidades', especialidade)}
               />
+
+
             </div>
-            <div className="form-group col-6">
-              <b>Rua / Logradouro</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Rua / Logradouro"
-                disabled={form.disabled}
-                value={cliente.endereco.logradouro}
-                onChange={(e) =>
-                  setCliente('endereco', {
-                    ...cliente.endereco,
-                    logradouro: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="form-group col-3">
-              <b>Número</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Número"
-                disabled={form.disabled}
-                value={cliente.endereco.numero}
-                onChange={(e) =>
-                  setCliente('endereco', {
-                    ...cliente.endereco,
-                    numero: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="form-group col-3">
-              <b>UF</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="UF"
-                disabled={form.disabled}
-                value={cliente.endereco.uf}
-                onChange={(e) =>
-                  setCliente('endereco', {
-                    ...cliente.endereco,
-                    uf: e.target.value,
-                  })
-                }
-              />
-            </div>
-            <div className="form-group col-9">
-              <b>Cidade</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Cidade"
-                disabled={form.disabled}
-                value={cliente.endereco.cidade}
-                onChange={(e) =>
-                  setCliente('endereco', {
-                    ...cliente.endereco,
-                    cidade: e.target.value,
-                  })
-                }
-              />
-            </div>
+
           </div>
-          <Button
-            block
-            className="mt-3"
-            appearance="primary"
-            color={behavior === "create" ? 'green' : 'red'}
-            size="lg"
-            loading={form.saving}
-            onClick={()=>{
-             if (behavior === "create") {
-              save();
-             } else {
-              setComponent('confirmDelete', true);
-             }
-            }}
-          >
-            {behavior === "create" ? "Salvar" : "Remover"} Cliente
-          </Button>
         </Drawer.Body>
       </Drawer>
       <Modal
@@ -239,13 +175,13 @@ const Clientes = () => {
       <div className="row">
         <div className="col-12">
           <div className="w-100 d-flex justify-content-between ">
-            <h2 className="mb-4 mt-0">Clientes</h2>
+            <h2 className="mb-4 mt-0">Colaboradores</h2>
             <div>
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => {
                   dispatch(
-                    updateCliente({
+                    updateColaborador({
                       behavior: 'create',
                     })
                   );
@@ -253,33 +189,33 @@ const Clientes = () => {
                 }}
               >
                 <Icon path={mdiPlus} size={1} />
-                <span> Novo CLiente</span>
+                <span> Novo Colaborador</span>
               </button>
             </div>
           </div>
           <Table
             loading={form.filtering}
-            data={clientes}
+            data={colaboradores}
             config={[
               { label: 'Nome', key: 'nome', width: 200, fixed: true },
               { label: 'E-mail', key: 'email', width: 200 },
               { label: 'Telefone', key: 'telefone', width: 200 },
-              { label: 'Data Cadastro', content: (cliente) => moment(cliente.dataCadastro).format('DD/MM/YYYY'), width: 200 },
-              { label: 'Status', content: (cliente) => cliente.status === "A" ? "Ativo" : "Inativo", width: 200 },
+              { label: 'Data Cadastro', content: (colaborador) => moment(colaborador.dataCadastro).format('DD/MM/YYYY'), width: 200 },
+              { label: 'Status', content: (colaborador) => colaborador.status === "A" ? "Ativo" : "Inativo", width: 200 },
 
             ]}
-            actions={(cliente) => (
+            actions={(colaborador) => (
               <Button appearance="primary" color="blue" size="xs">Ver informações</Button>
             )}
-            onRowClick={(cliente) => {
+            onRowClick={(colaborador) => {
               dispatch(
-                updateCliente({
+                updateColaborador({
                   behavior: 'update',
                 })
               );
               dispatch(
-                updateCliente({
-                  cliente,
+                updateColaborador({
+                  colaborador,
                 })
               );
               setComponent('drawer', true);
@@ -290,4 +226,4 @@ const Clientes = () => {
   )
 }
 
-export default Clientes;
+export default Colaboradores;

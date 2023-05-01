@@ -63,23 +63,26 @@ const Clientes = () => {
               <b>E-mail</b>
               <div className="input-group">
                 <input
+                  disabled={behavior === "update"}
                   type="email"
                   className="form-control"
                   placeholder="E-mail do cliente"
                   value={cliente.email}
                   onChange={(e) => setCliente('email', e.target.value)}
                 />
-                <div className="input-group-append">
-                  <Button
-                    appearance="primary"
-                    color="blue"
-                    loading={form.filtering}
-                    disabled={form.filtering}
-                    onClick={() => dispatch(filterClientes())}
-                  >
-                    Pesquisar
-                  </Button>
-                </div>
+                {behavior === "create" && ( 
+                  <div className="input-group-append">
+                    <Button
+                      appearance="primary"
+                      color="blue"
+                      loading={form.filtering}
+                      disabled={form.filtering}
+                      onClick={() => dispatch(filterClientes())}
+                    >
+                      Pesquisar
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
             <div className="form-group col-6">
@@ -103,8 +106,7 @@ const Clientes = () => {
                 value={cliente.telefone}
                 onChange={(e) => setCliente('telefone', e.target.value)}
               />
-            </div>
-           
+            </div>           
             <div className="form-group col-3">
               <b>CEP</b>
               <input
