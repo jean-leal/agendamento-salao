@@ -14,6 +14,7 @@ const corsOptions ={// liberando acessos de qualquer url, sem essa permissão al
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -27,7 +28,6 @@ app.use('/colaborador', require('./src/routes/colaborador.routes'));
 app.use('/cliente', require('./src/routes/cliente.routes'));
 app.use('/agendamento', require('./src/routes/agendamento.routes'));
 app.use('/dias-disponiveis', require('./src/routes/agendamento.routes'));
-
 
 //variables
 app.set('port', 8000);

@@ -16,7 +16,7 @@ const cliente = new Schema({
   },
   senha: {
     type: String,
-    required: [true, 'Senha é obrigatório.'],
+    //required: [true, 'Senha é obrigatório.'],
   },
   foto: String,  
   status: {
