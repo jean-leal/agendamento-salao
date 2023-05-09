@@ -9,50 +9,47 @@ import { mdiPlus, mdiAlertOutline } from '@mdi/js';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  allColaboradores,
-  updateColaborador,
-  filterColaboradores,
-  addColaborador,
-  unlinkColaborador,
   allServicos,
-} from '../../store/modules/colaborador/actions';
+  updateServico,
+  addServico,
+  removeServico,
+} from '../../store/modules/servico/actions';
 import ModalFooter from "rsuite/esm/Modal/ModalFooter";
 
-const Colaboradores = () => {
+const Servicos = () => {
   const dispatch = useDispatch();
-  const { colaboradores, colaborador, behavior, form, components, servicos } = useSelector(state => state.colaborador);
+  const { servicos, servico, behavior, form, components } = useSelector(state => state.servico);
   const setComponent = (component, state) => {
     dispatch(
-      updateColaborador({
+      updateServico({
         components: { ...components, [component]: state },
       })
     );
   }
 
-  const setColaborador = (key, value) => {
+  const setServico = (key, value) => {
     dispatch(
-      updateColaborador({
-        colaborador: { ...colaborador, [key]: value },
+      updateServico({
+        servico: { ...servico, [key]: value },
       })
     );
   }
 
   const save = () => {  
-    dispatch(addColaborador());
+    dispatch(addServico());
   }
 
   const remove = () => {
-    dispatch(unlinkColaborador());
+    dispatch(removeServico());
   }
 
   useEffect(() => {
-    dispatch(allColaboradores())
     dispatch(allServicos())
   }, [dispatch]);
 
   return (
     <div className="col p-5 overflow-auto h-100 ">
-      <Drawer
+     {/* <Drawer
         open={components.drawer}
         onClose={() => setComponent('drawer', false)}
         size="sm"
@@ -69,7 +66,7 @@ const Colaboradores = () => {
                   className="form-control"
                   placeholder="E-mail do colaborador"
                   value={colaborador.email}
-                  onChange={(e) => setColaborador('email', e.target.value)}
+                  onChange={(e) => setServico('email', e.target.value)}
                 />
                 {behavior === 'create' && (
                   <div className="input-group-append">
@@ -80,7 +77,7 @@ const Colaboradores = () => {
                       disabled={form.filtering}
                       onClick={() => {
                         dispatch(
-                          filterColaboradores()
+                          filterservicos()
                         );
                       }}
                     >
@@ -98,7 +95,7 @@ const Colaboradores = () => {
                 placeholder="Nome do colaborador"
                 disabled={form.disabled}
                 value={colaborador.nome}
-                onChange={(e) => setColaborador('nome', e.target.value)}
+                onChange={(e) => setServico('nome', e.target.value)}
               />
             </div>
             <div className="form-group col-6">
@@ -107,7 +104,7 @@ const Colaboradores = () => {
                 className="form-control"
                 disabled={form.disabled && behavior === 'create'}
                 value={colaborador.vinculo}
-                onChange={(e) => setColaborador('vinculo', e.target.value)}
+                onChange={(e) => setServico('vinculo', e.target.value)}
               >
                 <option value="A">Ativo</option>
                 <option value="I">Inativo</option>
@@ -121,7 +118,7 @@ const Colaboradores = () => {
                 placeholder="Telefone / Whatsapp do colaborador"
                 disabled={form.disabled}
                 value={colaborador.telefone}
-                onChange={(e) => setColaborador('telefone', e.target.value)}
+                onChange={(e) => setServico('telefone', e.target.value)}
               />
             </div>
             <div className="col-12">
@@ -132,7 +129,7 @@ const Colaboradores = () => {
                 data={ servicos }
                 disabled={form.disabled && behavior === 'create'}
                 value={colaborador.especialidades}
-                onChange={(especialidade) => setColaborador('especialidades', especialidade)}
+                onChange={(especialidade) => setServico('especialidades', especialidade)}
               />
             </div>
             <Button
@@ -162,7 +159,7 @@ const Colaboradores = () => {
           
           </div>
         </Drawer.Body>
-      </Drawer>
+          </Drawer> */}
       <Modal
         open={components.confirmDelete}
         onClose={() => setComponent('confirmDelete', false)}
@@ -197,13 +194,13 @@ const Colaboradores = () => {
       <div className="row">
         <div className="col-12">
           <div className="w-100 d-flex justify-content-between ">
-            <h2 className="mb-4 mt-0">Colaboradores</h2>
+            <h2 className="mb-4 mt-0">Serviços</h2>
             <div>
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => {
                   dispatch(
-                    updateColaborador({
+                    updateServico({
                       behavior: 'create',
                     })
                   );
@@ -217,11 +214,12 @@ const Colaboradores = () => {
           </div>
           <Table
             loading={form.filtering}
-            data={colaboradores}
+            data={servicos}
             config={[
-              { label: 'Nome', key: 'nome', width: 200, fixed: true },
-              { label: 'E-mail', key: 'email', width: 200 },
-              { label: 'Telefone', key: 'telefone', width: 200 },
+              { label: 'Titulo', key: 'titulo', width: 200, fixed: true },
+              aula 5 2:20
+              { label: 'R$ Preço', content: (servico) => `R$ ${servico.preco.toFixed(2)}`, width: 200 },
+              { label: 'Recorrência', content: (servico) => `R$ ${servico.recorrencia.toFixed(2)}`, width: 200 },
               { label: 'Data Cadastro', content: (colaborador) => moment(colaborador.dataCadastro).format('DD/MM/YYYY'), width: 200 },
               { label: 'Status', content: (colaborador) => colaborador.status === "A" ? "Ativo" : "Inativo", width: 200 },
 
@@ -231,12 +229,12 @@ const Colaboradores = () => {
             )}
             onRowClick={(colaborador) => {
               dispatch(
-                updateColaborador({
+                updateServico({
                   behavior: 'update',
                 })
               );
               dispatch(
-                updateColaborador({
+                updateServico({
                   colaborador,
                 })
               );
@@ -248,7 +246,7 @@ const Colaboradores = () => {
   )
 }
 
-export default Colaboradores;
+export default Servicos;
 
 
 

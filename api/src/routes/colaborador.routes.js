@@ -74,7 +74,7 @@ router.put('/:colaboradorId', async (req, res) =>{
 
     const { vinculo, vinculoId, especialidades, salaoId } = req.body;
     const {colaboradorId} = req.params;
-
+  
     //vinculo 
     await SalaoColaborador.findByIdAndUpdate(vinculoId, {status : vinculo});
 
@@ -139,7 +139,7 @@ router.get('/salao/:salaoId', async (req, res) =>{
     
       listaColaboradores.push({
         ...vinculo._doc,
-        especialidades
+        especialidades: especialidades.map(especialidade => ( especialidade.servicoId ))
       })
     }
 
