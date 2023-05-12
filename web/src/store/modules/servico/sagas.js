@@ -30,30 +30,21 @@ export function* allServicos() {
 
 export function* addServico() {
 
-  const { form, colaborador, components, behavior } = yield select((state) => state.colaborador)
+  const { form, servico, components, behavior } = yield select((state) => state.servico)
 
   try {
     yield put(updateServico({ form: { ...form, saving: true } }));
-    let res = {};
-    if (behavior === "create"){
-      const response = yield call(
-        api.post, `/colaborador`, {
-        salaoId: consts.salaoId,
-        colaborador
-      });
-      res = response.data;
-    } else {
-      const response = yield call(
-        api.put, `/colaborador/${colaborador._id}`, {
-        salaoId: consts.salaoId,
-        vinculo: colaborador.vinculo,
-        vinculoId: colaborador.vinculoId,
-        especialidades: colaborador.especialidades
-      });
-      res = response.data;
-    }
+  
+    const formData = new FormData();
+    formData.append( "servico", JSON.stringify(servico));
+    formData.append('salaoId', consts.salaoId);
     
-
+    const {data: res} = yield call(
+      api[behavior === 'create' ? "post" : "put"],
+      behavior === 'create' ? `/servico` : `/servico/${servico._id}`,
+      console.log(formData)
+    );
+      5 2:54
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {

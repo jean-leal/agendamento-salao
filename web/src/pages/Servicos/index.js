@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Drawer, Modal, TagPicker, TreePicker } from "rsuite";
+import { Button, DatePicker, Drawer, Modal, Tag } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Table from "../../components/Table";
 import moment from "moment";
@@ -38,7 +38,6 @@ const Servicos = () => {
   const save = () => {  
     dispatch(addServico());
   }
-
   const remove = () => {
     dispatch(removeServico());
   }
@@ -49,117 +48,95 @@ const Servicos = () => {
 
   return (
     <div className="col p-5 overflow-auto h-100 ">
-     {/* <Drawer
+     { <Drawer
         open={components.drawer}
         onClose={() => setComponent('drawer', false)}
         size="sm"
       >
         <Drawer.Body>
-          <h3>{behavior === "create" ? "Criar novo" : "Atualizar"} colaborador</h3>
+          <h3>{behavior === "create" ? "Criar novo" : "Atualizar"} serviço</h3>
           <div className="row mt-3">
-            <div className="form-group col-12 mb-3">
-              <b>E-mail</b>
-              <div className="input-group">
+            <div className="form-group col-6">
+              <b>Título</b>             
                 <input
-                  disabled ={behavior === "update"}
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="E-mail do colaborador"
-                  value={colaborador.email}
-                  onChange={(e) => setServico('email', e.target.value)}
-                />
-                {behavior === 'create' && (
-                  <div className="input-group-append">
-                    <Button
-                      appearance="primary"
-                      color="blue"
-                      loading={form.filtering}
-                      disabled={form.filtering}
-                      onClick={() => {
-                        dispatch(
-                          filterservicos()
-                        );
-                      }}
-                    >
-                      Pesquisar
-                    </Button>
-                  </div>
-                )}                  
-              </div>
+                  placeholder="Título do serviço"
+                  value={servico.titulo}
+                  onChange={(e) => setServico('titulo', e.target.value)}
+                />  
             </div>
             <div className="form-group col-6">
-              <b>Nome</b>
+              <b>Preço</b>
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                placeholder="Nome do colaborador"
-                disabled={form.disabled}
-                value={colaborador.nome}
-                onChange={(e) => setServico('nome', e.target.value)}
+                placeholder="Preço do serviço"
+                value={servico.preco}
+                onChange={(e) => setServico('preco', e.target.value)}
               />
             </div>
             <div className="form-group col-6">
               <b>Status</b>
               <select
                 className="form-control"
-                disabled={form.disabled && behavior === 'create'}
-                value={colaborador.vinculo}
-                onChange={(e) => setServico('vinculo', e.target.value)}
+                value={servico.status}
+                onChange={(e) => setServico('status', e.target.value)}
               >
                 <option value="A">Ativo</option>
                 <option value="I">Inativo</option>
               </select>
             </div> 
             <div className="form-group col-6">
-              <b>Telefone / Whatsapp</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Telefone / Whatsapp do colaborador"
-                disabled={form.disabled}
-                value={colaborador.telefone}
-                onChange={(e) => setServico('telefone', e.target.value)}
+              <b className="d-block">Duração</b>
+              <DatePicker
+                block
+                format="HH:mm"
+               value={new Date(servico.duracao)}
+                hideMinutes={(min) => ![0, 30].includes(min)}
+                onChange={(e) => {
+                  setServico('duracao', e);
+                }}
               />
+             
             </div>
             <div className="col-12">
-              <b>Especialidades</b>
-              <TagPicker
-                size="lg"
-                block
-                data={ servicos }
-                disabled={form.disabled && behavior === 'create'}
-                value={colaborador.especialidades}
-                onChange={(especialidade) => setServico('especialidades', especialidade)}
-              />
-            </div>
-            <Button
-              block
-              className="mt-3"
-              appearance="primary"
-              color={behavior === "create" ? 'green' : 'blue'}
-              size="lg"
-              loading={form.saving}
-              onClick={()=> save()}
-            >
-             {behavior === "create" ? "Salvar" : "Atualizar"} Colaborador
-          </Button>
-          {behavior === "update" && (
-            <Button
-              block
-              className="mt-1"
-              appearance="primary"
-              color="red"
-              size="lg"
-              loading={form.saving}
-              onClick={()=> setComponent('confirmDelete', true)}
-            >
-              Remover Colaborador
-            </Button>
-          )}
-          
+              <b>Descrição</b>
+              <textarea
+                rows='5'
+                className="form-control"
+                placeholder="Descrição do serviço ..."                
+                value={servico.descricao}
+                onChange={(e) => setServico('descricao', e.target.value)}
+              ></textarea>
+            </div>  
           </div>
+          <Button
+            loading={form.saving}
+            appearance="primary"
+            color={behavior === 'create' ? 'green' : 'blue'}
+            size='lg'
+            block
+            onClick={() => save()}
+            className="mt-3"
+          >
+            {behavior === 'create' ? 'Salvar' : 'Atualizar'} Serviço
+          </Button>
+          {behavior === 'update' && (
+             <Button
+             loading={form.saving}
+             appearance="primary"
+             color="red"
+             size='lg'
+             block
+             onClick={() => setComponent('confirmDelete', true)}
+             className="mt-1"
+           >
+             Remover Serviço
+           </Button>
+          )}
         </Drawer.Body>
-          </Drawer> */}
+          </Drawer> }
       <Modal
         open={components.confirmDelete}
         onClose={() => setComponent('confirmDelete', false)}
@@ -217,17 +194,18 @@ const Servicos = () => {
             data={servicos}
             config={[
               { label: 'Titulo', key: 'titulo', width: 200, fixed: true },
-              aula 5 2:20
               { label: 'R$ Preço', content: (servico) => `R$ ${servico.preco.toFixed(2)}`, width: 200 },
-              { label: 'Recorrência', content: (servico) => `R$ ${servico.recorrencia.toFixed(2)}`, width: 200 },
-              { label: 'Data Cadastro', content: (colaborador) => moment(colaborador.dataCadastro).format('DD/MM/YYYY'), width: 200 },
-              { label: 'Status', content: (colaborador) => colaborador.status === "A" ? "Ativo" : "Inativo", width: 200 },
-
+              { label: 'Duração', key: 'duracao',content: (servico) => moment(servico.duracao).format('HH:mm') },
+              { label: 'Status', key: 'status', content: (servico) => (
+                <Tag color={servico.status === 'A' ? 'green' : 'red'}>
+                    { servico.status === "A" ? "Ativo" : "Inativo" }
+                </Tag>
+              )}              
             ]}
-            actions={(colaborador) => (
+            actions={(servico) => (
               <Button appearance="primary" color="blue" size="xs">Ver informações</Button>
             )}
-            onRowClick={(colaborador) => {
+            onRowClick={(servico) => {
               dispatch(
                 updateServico({
                   behavior: 'update',
@@ -235,7 +213,7 @@ const Servicos = () => {
               );
               dispatch(
                 updateServico({
-                  colaborador,
+                  servico,
                 })
               );
               setComponent('drawer', true);
