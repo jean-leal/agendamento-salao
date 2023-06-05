@@ -255,7 +255,7 @@ const Clientes = () => {
                 }}
               >
                 <Icon path={mdiPlus} size={1} />
-                <span> Novo CLiente</span>
+                <span> Novo Cliente</span>
               </button>
             </div>
           </div>

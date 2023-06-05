@@ -13,6 +13,7 @@ import {
   updateServico,
   addServico,
   removeServico,
+  resetServico
 } from '../../store/modules/servico/actions';
 import ModalFooter from "rsuite/esm/Modal/ModalFooter";
 
@@ -177,6 +178,9 @@ const Servicos = () => {
                 className="btn btn-primary btn-lg"
                 onClick={() => {
                   dispatch(
+                    resetServico()
+                    );
+                  dispatch(
                     updateServico({
                       behavior: 'create',
                     })
@@ -185,7 +189,7 @@ const Servicos = () => {
                 }}
               >
                 <Icon path={mdiPlus} size={1} />
-                <span> Novo Colaborador</span>
+                <span> Novo Serviço</span>
               </button>
             </div>
           </div>

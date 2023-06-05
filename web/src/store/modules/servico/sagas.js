@@ -35,16 +35,14 @@ export function* addServico() {
   try {
     yield put(updateServico({ form: { ...form, saving: true } }));
   
-    const formData = new FormData();
-    formData.append( "servico", JSON.stringify(servico));
-    formData.append('salaoId', consts.salaoId);
-    
+    let novoServico = ({...servico, salaoId : consts.salaoId})
+
     const {data: res} = yield call(
       api[behavior === 'create' ? "post" : "put"],
       behavior === 'create' ? `/servico` : `/servico/${servico._id}`,
-      console.log(formData)
+      novoServico
     );
-      5 2:54
+    
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
@@ -82,7 +80,7 @@ export function* removeServico() {
 
     yield put(allServicosAction());
     yield put(updateServico({ components: { ...components, drawer: false, confirmDelete: false } }));
-    yield put(resetServico());
+    //yield put(resetServico());
 
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
