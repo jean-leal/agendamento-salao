@@ -93,7 +93,7 @@ const Servicos = () => {
               <DatePicker
                 block
                 format="HH:mm"
-               value={new Date(servico.duracao)}
+                value={new Date(servico.duracao)}
                 hideMinutes={(min) => ![0, 30].includes(min)}
                 onChange={(e) => {
                   setServico('duracao', e);

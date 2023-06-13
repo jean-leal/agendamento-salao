@@ -4,6 +4,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import { useEffect } from 'react';
 import util from '../../util';
+import 'moment/locale/pt-br';
 
 import { filterAgendamentos } from '../../store/modules/agendamento/actions';
 

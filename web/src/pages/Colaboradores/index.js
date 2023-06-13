@@ -21,6 +21,7 @@ import ModalFooter from "rsuite/esm/Modal/ModalFooter";
 const Colaboradores = () => {
   const dispatch = useDispatch();
   const { colaboradores, colaborador, behavior, form, components, servicos } = useSelector(state => state.colaborador);
+  
   const setComponent = (component, state) => {
     dispatch(
       updateColaborador({

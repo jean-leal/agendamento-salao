@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
 import Icon from '@mdi/react';
-import { mdiCalendarCheck, mdiAccountBadge, mdiCardAccountDetailsOutline, mdiAutoFix } from '@mdi/js';
+import { mdiCalendarCheck, mdiAccountBadge, mdiCardAccountDetailsOutline, mdiAutoFix, mdiClockCheckOutline} from '@mdi/js';
 
 
 
@@ -33,6 +33,12 @@ const Sidebar = () => {
           <Link to="/servicos" className={location.pathname === '/servicos' ? 'active' : ''}>
             <Icon path={mdiAutoFix} size={1}/>
             <text>Serviços</text>
+          </Link>         
+        </li>
+        <li>
+          <Link to="/horarios" className={location.pathname === '/horarios' ? 'active' : ''}>
+            <Icon path={mdiClockCheckOutline} size={1}/>
+            <text>Horários</text>
           </Link>         
         </li>
       </ul> 

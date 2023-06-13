@@ -52,7 +52,7 @@ export function* addServico() {
 
     yield put(allServicosAction());
     yield put(updateServico({ components: { ...components, drawer: false } }));
-    yield put(resetServico());
+    //yield put(resetServico());
 
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
@@ -62,12 +62,12 @@ export function* addServico() {
 
 export function* removeServico() {
 
-  const { form, colaborador, components } = yield select((state) => state.colaborador)
+  const { form, servico, components } = yield select((state) => state.servico)
 
   try {
     yield put(updateServico({ form: { ...form, saving: true } }));
     const { data: res } = yield call(
-      api.delete, `/colaborador/vinculo/${colaborador.vinculoId}`);
+      api.delete, `/servico/${servico._id}`);
 
     yield put(updateServico({
       form: { ...form, saving: false }
@@ -80,7 +80,7 @@ export function* removeServico() {
 
     yield put(allServicosAction());
     yield put(updateServico({ components: { ...components, drawer: false, confirmDelete: false } }));
-    //yield put(resetServico());
+    yield put(resetServico());
 
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
