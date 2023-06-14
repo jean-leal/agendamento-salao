@@ -11,16 +11,16 @@ export function* allHorarios() {
   try {
     yield put(updateHorario({ form: { ...form, filtering: true } }));
     const { data: res } = yield call(api.get, `/horario/salao/${consts.salaoId}`);
-    
+ 
     yield put(updateHorario({ form: { ...form, filtering: false } }));
 
     if (res.error) {
       alert(res.message);
       return false;
     }
-
+    
     yield put(updateHorario({ horarios: res.horarios }));
-
+    
   } catch (err) {
     yield put(updateHorario({ form: { ...form, filtering: false } }));
 
@@ -28,19 +28,46 @@ export function* allHorarios() {
   }
 }
 
-export function* filterColaboradores() {
-
-  const { form, colaborador } = yield select((state) => state.colaborador)
+export function* removeHorario() {
+  
+  const { form, horario, components } = yield select((state) => state.horario)
 
   try {
     yield put(updateHorario({ form: { ...form, filtering: true } }));
-    const { data: res } = yield call(
-      api.post, `/colaborador/filter`, {
-      filters: {
-        email: colaborador.email,
-        status: 'A',
-      }
+    const { data: res } = yield call(api.delete, `/horario/${horario._id}`);
+  
+    yield put(updateHorario({ form: { ...form, filtering: false } }));
+
+    if (res.error) {
+      alert(res.message);
+      return false;
     }
+
+    yield put(allHorariosAction());
+    yield put(updateHorario({
+      components: { ...components, drawer: false, confirmDelete: false }
+      })
+    );
+    yield put(resetHorario());
+      
+  } catch (err) {
+    yield put(updateHorario({ form: { ...form, filtering: false } }));
+
+    alert(err.message);
+  }
+}
+
+
+export function* filterColaboradores() {
+
+  const { form, horario} = yield select((state) => state.horario)
+  
+  try {
+    yield put(updateHorario({ form: { ...form, filtering: true } }));
+    const { data: res } = yield call(
+      api.post, `/horario/colaboradores`, {
+        especialidades: horario.especialidadesId 
+      }    
     );
 
     yield put(updateHorario({ form: { ...form, filtering: false } }));
@@ -50,47 +77,10 @@ export function* filterColaboradores() {
       return false;
     }
 
-    if (res.colaboradores.length > 0) {
-      yield put(updateHorario({
-        colaborador: res.colaboradores[0],
-        form: { ...form, filtering: false, disabled: true }
-      }
-      ));
-
-    } else {
-      yield put(updateHorario({ form: { ...form, disabled: false } }));
-    }
-
+    yield put(updateHorario({colaboradores: res.listaColaboradores}));
+   
   } catch (err) {
     yield put(updateHorario({ form: { ...form, filtering: false } }));
-    alert(err.message);
-  }
-}
-
-export function* unlinkColaborador() {
-
-  const { form, colaborador, components } = yield select((state) => state.colaborador)
-
-  try {
-    yield put(updateHorario({ form: { ...form, saving: true } }));
-    const { data: res } = yield call(
-      api.delete, `/colaborador/vinculo/${colaborador.vinculoId}`);
-
-    yield put(updateHorario({
-      form: { ...form, saving: false }
-    }));
-
-    if (res.error) {
-      alert(res.message);
-      return false;
-    }
-
-    yield put(allHorariosAction());
-    yield put(updateHorario({ components: { ...components, drawer: false, confirmDelete: false } }));
-    yield put(resetHorario());
-
-  } catch (err) {
-    yield put(updateHorario({ form: { ...form, saving: false } }));
     alert(err.message);
   }
 }
@@ -101,32 +91,27 @@ export function* addHorario() {
 
   try {
     yield put(updateHorario({ form: { ...form, saving: true } }));
-    let res = {};
-    if (behavior === "create"){
-      const response = yield call(
-        api.post, `/horario`, {
-        ...horario, 
-        salaoId: consts.salaoId
-      });
-      res = response.data;
-    } else {
-      const response = yield call(
-        api.put, `/horario/${horario._id}`, horario);
-      res = response.data;
-    }
-    
-
+   
+    const {data: res} = yield call(
+      api[behavior === 'create' ? "post" : "put"],
+      behavior === 'create' ? `/horario` : `/horario/${horario._id}`, {
+        horario: {...horario, salaoId: consts.salaoId}        
+        }
+      );  
+          
     yield put(updateHorario({ form: { ...form, saving: false } }));
 
     if (res.error) {
       alert(res.message);
       return false;
     }
-
+    
     yield put(allHorariosAction());
-    yield put(updateHorario({ components: { ...components, drawer: false } }));
+    yield put(updateHorario({
+      components: { ...components, drawer: false, confirmDelete: false }
+      })
+    );
     yield put(resetHorario());
-
   } catch (err) {
     yield put(updateHorario({ form: { ...form, saving: false } }));
     alert(err.message);
@@ -159,8 +144,6 @@ export default all([
   takeLatest(types.ALL_HORARIOS, allHorarios),
   takeLatest(types.ALL_SERVICOS, allServicos),
   takeLatest(types.ADD_HORARIO, addHorario),
- /* takeLatest(types.FILTER_COLABORADOR, filterColaboradores),
- 
-  takeLatest(types.UNLINK_COLABORADOR, unlinkColaborador),
-  */
+  takeLatest(types.FILTER_COLABORADORES, filterColaboradores),
+  takeLatest(types.REMOVE_HORARIO, removeHorario),
 ]);

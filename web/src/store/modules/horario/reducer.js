@@ -1,5 +1,6 @@
 import produce from 'immer';
 import types from './types';
+import moment from 'moment';
 
 const INITIAL_STATE = {
   behavior:'create',
@@ -18,10 +19,10 @@ const INITIAL_STATE = {
   horarios: [],
   horario: {
     dias: [],
-    inicio: '',
-    fim: '',
+    inicio: moment(new Date, 'HH:mm').format(),
+    fim: moment(new Date, 'HH:mm').format(),
     especialidades:'',
-    colaboradores: [],
+    colaboradores: '',
   },
 };
 

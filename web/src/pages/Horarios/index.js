@@ -1,6 +1,6 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { DatePicker, Drawer, TagPicker, Button } from 'rsuite';
+import { DatePicker, Drawer, TagPicker, Button, Modal } from 'rsuite';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
@@ -9,12 +9,14 @@ import {
   allServicos, 
   filterColaboradores,
   addHorario,
-  updateHorario 
+  updateHorario,
+  removeHorario
 } from '../../store/modules/horario/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from '@mdi/react';
-import { mdiPlus } from '@mdi/js';
+import ModalFooter from "rsuite/esm/Modal/ModalFooter";
+import { mdiPlus, mdiAlertOutline } from '@mdi/js';
 import { useEffect } from 'react';
 
 moment.locale('pt-br')
@@ -24,7 +26,7 @@ const localizer = momentLocalizer(moment);
 const Horarios = () => {
   const dispatch = useDispatch();
   const {horarios, servicos, form, colaboradores, behavior, horario, components} = useSelector(state => state.horario);
-console.log(horario)
+
   const diasSemanaData = [
     new Date(2023, 5, 11, 0, 0, 0, 0),
     new Date(2023, 5, 12, 0, 0, 0, 0),
@@ -80,6 +82,10 @@ console.log(horario)
 
   const save = () => {
     dispatch(addHorario())
+  } 
+
+  const remove = () => {
+    dispatch(removeHorario())
   }
 
   useEffect(()=> {
@@ -87,6 +93,7 @@ console.log(horario)
     dispatch(allHorarios());
     // todos os serviços
     dispatch(allServicos());
+        
   }, [dispatch])
 
   useEffect(()=> {
@@ -119,21 +126,21 @@ console.log(horario)
                 <b className='d-block'>Horário Inicial</b>
                 <DatePicker
                   block
-                  format='HH:mm'
-                  hideMinutes={(min) => ![0,30].includes(min)}
+                  format="HH:mm"
                   value={new Date(horario.inicio)}
+                  hideMinutes={(min) => ![0,30].includes(min)}
                   onChange={(e) => {
                     setHorario('inicio', e);
                   }}
                 />
               </div>
               <div className="col-6 mt-3">
-                <b className='d-block'>Horário Inicial</b>
+                <b className='d-block'>Horário Final</b>
                 <DatePicker
                   block
-                  format='HH:mm'
-                  hideMinutes={(min) => ![0,30].includes(min)}
+                  format="HH:mm"
                   value={new Date(horario.fim)}
+                  hideMinutes={(min) => ![0,30].includes(min)}
                   onChange={(e) => {
                     setHorario('fim', e);
                   }}
@@ -146,7 +153,7 @@ console.log(horario)
                   data={servicos}                  
                   value={horario.especialidadesId}
                   onChange={(e) => {
-                    setHorario('especialidades', e);
+                    setHorario('especialidadesId', e);
                   }}
                 />
               </div>
@@ -157,13 +164,14 @@ console.log(horario)
                   data={colaboradores}                  
                   value={horario.colaboradorId}
                   onChange={(e) => {
-                    setHorario('colaboradores', e);
+                    setHorario('colaboradorId', e);
                   }}
                 />
               </div>
               <Button
                 loading={form.saving}
-                color={behavior === 'create' ? 'green' : 'primary'}
+                appearance='primary'
+                color={behavior === 'create' ? 'green' : 'blue'}
                 size='lg'
                 block
                 onClick={()=> save()}
@@ -175,6 +183,7 @@ console.log(horario)
                 <Button
                 loading={form.saving}
                 color='red'
+                appearance='primary'
                 size='lg'
                 block
                 onClick={()=> setComponent('confirmDelete', true)}
@@ -186,6 +195,37 @@ console.log(horario)
           </div>
         </Drawer.Body>
       </Drawer>
+      <Modal
+        open={components.confirmDelete}
+        onClose={() => setComponent('confirmDelete', false)}
+        size="xs"
+      >
+        <Modal.Body>
+          <Icon
+            path={mdiAlertOutline}
+            size= {2}
+            style={{ color: '#ffb300' }}
+          />
+          {'     '} Tem certeza que deseja excluir? Essa ação será irreversível!
+        </Modal.Body>
+        <ModalFooter>
+          <Button
+            loading={form.saving}
+            onClick={()=> remove()}
+            appearance="primary"
+            color="red"
+          >
+            Sim tenho certeza!
+          </Button>
+          <Button 
+            onClick={() => setComponent('confirmDelete', false)}            
+            appearance="subtle"
+          >
+            Cancelar
+          </Button>
+        </ModalFooter>
+
+      </Modal>
       <div className="row">
         <div className="col-12">
         <div className="w-100 d-flex justify-content-between ">
@@ -194,7 +234,12 @@ console.log(horario)
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => {
-                  
+                  dispatch(
+                    updateHorario({
+                      behavior: 'create'
+                    })
+                  );
+                  setComponent('drawer', true);
                 }}
               >
                 <Icon path={mdiPlus} size={1} />
@@ -215,19 +260,32 @@ console.log(horario)
                 })
               )
               setComponent('drawer', true)
-              console.log(horario)
+             
             }}
             localizer={localizer}
             toolbar={false}
             formats={{
               dateFormat: 'dd',
-              dayFormat: (date, culture, localizer) => localizer.format(date, 'dddd', culture)
+              //dayFormat: (date, culture, localizer) => localizer.format(date, 'dddd', culture)
+            }}
+            onSelectSlot={(slotInfo) => {
+              const {start, end} = slotInfo
+              dispatch(updateHorario({
+                behavior: 'create',
+                horario: {
+                  ...horario, 
+                  dias: [moment(start).day()],
+                  inicio: new Date(start) ,
+                  fim: new Date(end)
+                }
+              }))
+              setComponent('drawer', true);
             }}
             popup
             selectable
             events={formatEvents}
-            date={diasSemanaData[moment().day()]}
-            view="week"
+            defaultDate={diasSemanaData[moment().day()]}
+            defaultView='week'
             style={{ height: 600 }}
           />
         </div>

@@ -6,11 +6,12 @@ const _ = require('lodash');
 
 
 router.post('/', async (req, res) =>{
+
   try{
-    const horario = await new Horario(req.body).save();
+    const horario = await new Horario(req.body.horario).save();    
     res.json({ horario })
   } catch (err){
-    re.json({ error: true, error: err.message})
+    res.json({ error: true, error: err.message})
   }
 });
 
@@ -27,8 +28,8 @@ router.get('/salao/:salaoId', async(req, res) =>{
 router.put('/:horarioId', async(req, res) =>{
   try{
     const { horarioId } = req.params;
-    const horario = req.body; 
-
+    const { horario } = req.body; 
+    
     await Horario.findByIdAndUpdate( horarioId, horario );
 
     res.json({ error: false })

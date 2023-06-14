@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Drawer, Modal, TagPicker, TreePicker } from "rsuite";
+import { Button, Drawer, Modal, TagPicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import Table from "../../components/Table";
 import moment from "moment";

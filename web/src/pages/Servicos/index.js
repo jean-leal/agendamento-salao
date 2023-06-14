@@ -94,7 +94,7 @@ const Servicos = () => {
                 block
                 format="HH:mm"
                 value={new Date(servico.duracao)}
-                hideMinutes={(min) => ![0, 30].includes(min)}
+                hideMinutes={(min) => ![0,30].includes(min)}
                 onChange={(e) => {
                   setServico('duracao', e);
                 }}
