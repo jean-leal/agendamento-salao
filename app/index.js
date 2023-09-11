@@ -27,3 +27,5 @@ const App = () => {
 }
 
 AppRegistry.registerComponent(appName, () => App);
+
+
