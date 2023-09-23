@@ -1,6 +1,7 @@
 import React from 'react';
 import { registerRootComponent } from 'expo';
 
+
 import {ThemeProvider} from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -44,7 +45,6 @@ const App = () => {
         <Home/>
       </PaperProvider>
     </ThemeProvider>
-   
   )
 }
 
