@@ -25,7 +25,7 @@ const Servico = () => {
             icon="clock-check-outline"
             background="success"
             mode="conteined"
-            color="light"
+            textColor="light"
           >
             Agendar
           </Button>

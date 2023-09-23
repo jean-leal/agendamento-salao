@@ -50,7 +50,7 @@ const Header = () => {
             background='success'           
             mode='contained'
             uppercase={false}
-            color='light'
+            textColor='light'
           >Agendar Agora</Button>
           <Text small spacing='10px 0 0' color='muted'>
             Horários disponíveis

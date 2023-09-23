@@ -1,11 +1,12 @@
-import React, { useCallback, useRef, useMemo, createRef } from "react";
-import { StyleSheet, View, Text, Button, ScrollView, Dimensions } from "react-native";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import React, { useMemo, createRef } from "react";
+import { StyleSheet, ScrollView, Dimensions } from "react-native";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import Resume from "./resume";
-import DateTime from "./dateTime"
-
+import DateTimePicker from "./dateTime"
+import EspecialistaPicker from "../ModalAgendamento/Especialistas";
 import ModalHeader from "./header";
+import EspecialistasModal from "./Especialistas/modal";
 
 const App = () => {
  
@@ -21,12 +22,20 @@ const App = () => {
       renderContent={()=>{
         
       }}
-    >
-      <ScrollView style={{backgroundColor: "#fff"}}>
+    > 
+      <>
+      <ScrollView 
+        style={{backgroundColor: "#fff"}}
+        stickyHeaderIndices={[0]}
+      >
         <ModalHeader/>
         <Resume/>
-        <DateTime/>
-      </ScrollView>       
+        <DateTimePicker/>
+        <EspecialistaPicker/>
+      </ScrollView> 
+      <EspecialistasModal/>
+      </>
+            
     </BottomSheet>         
   );
 };

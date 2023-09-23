@@ -6,7 +6,6 @@ import { Text, Title, Touchable, Spacer, Box } from "../../styles";
 import theme from "../../styles/theme.json";
 import util from "../../util";
 
-
 const DateTime = () => {
   return (
     <>

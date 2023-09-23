@@ -23,7 +23,7 @@ width: ${(props) => props.width || '100%'};
 max-width: ${(props) => props.width || '100%'};
 height: ${(props) => props.height || 'auto'};
 max-height: ${(props) => props.height || 'auto'};
-padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+padding: ${(props) => (props.hasPadding ? !props.removePaddingBottom ? '20px' : '20px 20px 0 20px' : '0px')};
 padding-top: ${(props) =>
   props.removePaddingTop ? '0' : props.hasPadding ? '20px' : '0px'};
 padding-bottom: ${(props) =>
@@ -51,7 +51,7 @@ export const Touchable = styled.TouchableOpacity`
 `;
 
 export const Title = styled(TitlePaper)`
-  color: ${(props) => props.theme[props.color || 'muted']};
+  color: ${(props) => props.theme[props.color || "dark"]};
   font-size: ${(props) => (props.small ? '22px' : '30px')};
   padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
   letter-spacing: -0.8px;
@@ -101,16 +101,16 @@ export const Badge = styled(BadgePaper)`
 `;
 
 export const Text = styled(TextPaper)`
-color: ${(props) => props.theme[props.color || 'muted']};
+color: ${(props) => props.theme[props.color || "dark"]};
 font-size: ${(props) => (props.small ? '13px' : '17px')};
-padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+padding: ${(props) => (props.hasPadding ? !props.removePaddingBottom ? '20px' : '20px 20px 0 20px' : '0px')};
 font-family: ${(props) => (props.bold ? 'Ubuntu_700Bold' : 'Ubuntu_300Light')}
 
 `;
 
 export const Button = styled(ButtonPaper).attrs((props) =>({
   buttonColor: props.theme[props.background] || props.background || 'danger',
-  textColor: props.theme[props.color] || 'red'
+  textColor: props.theme[props.textColor] || 'red'
 }))``
 
 export const TextInput = styled(TextInputPaper).attrs((props) => ({

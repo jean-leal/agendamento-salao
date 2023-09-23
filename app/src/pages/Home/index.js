@@ -1,16 +1,10 @@
 import React from 'react';
-
 import { FlatList } from 'react-native';
-
-import  Header  from '../../components/Header';
-import Servico from '../../components/Servico'
-
-import ModalAgendamento from "../../components/ModalAgendamento"
-
-import { Box, Spacer } from '../../styles';
-
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import  Header  from '../../components/Header';
+import Servico from '../../components/Servico';
+import ModalAgendamento from "../../components/ModalAgendamento"
 
 const Home = () => {
  return (
@@ -22,7 +16,7 @@ const Home = () => {
     keyExtractor={(item) => item}
   >
   </FlatList>  
-  <ModalAgendamento></ModalAgendamento>
+  <ModalAgendamento/>
   </GestureHandlerRootView>  
  )
 }
