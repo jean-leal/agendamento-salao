@@ -11,29 +11,29 @@ const PaymentPicker = () => {
     <>
     <Text bold hasPadding color="dark">Como você gostaria de pagar?</Text>
     <View style={{paddingHorizontal: 20}}>
-    <Box 
-      
-      row  
-      align="center"
-      justify="space-between">
-      <Box  align="center">
-        <Touchable align="center">
-          <Text align="center" >Cartão</Text>    
-        </Touchable>
-      </Box>
-      <Box  align="center" >
-        <Touchable align="center" border="1px solid ">
-          <Text>Dinheiro</Text>    
-        </Touchable>
-      </Box>
-      <Box  align="center">
-        <Touchable align="center" >
-          <Text>Pix</Text>    
-        </Touchable>
-      </Box>     
-    </Box>
-    </View>
-    
+    <FlatList
+        data={["Pix", "Cartão", "Dinheiro",]}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item)=> item}
+        renderItem={({item}) => (
+          <Touchable
+            key={item}
+            width="110px"
+            height="50px"
+            spacing="0 10px 0 0"
+            rounded="10px"
+            direction="column"
+            justify="center"
+            align="center"
+            border={`1px solid ${item === "Pix" ? theme.colors.primary : util.toAlpha(theme.colors.muted, 20)}`}
+            background={item === "Pix" ? "primary" : "light"}
+          >
+            <Text small color={item === "Pix" ? "light" : undefined }>{item}</Text>
+          </Touchable>               
+        )}  
+      />
+    </View>    
     </>
   )
 }

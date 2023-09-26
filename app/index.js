@@ -4,6 +4,8 @@ import { registerRootComponent } from 'expo';
 
 import {ThemeProvider} from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper';
+import {Provider as StoreProvider} from 'react-redux';
+
 
 import {colors} from './src/styles/theme.json'
 
@@ -20,6 +22,7 @@ import {
 } from '@expo-google-fonts/ubuntu';
 
 import Home from './src/pages/Home';
+import store from './src/store';
 
 const App = () => {
 
@@ -40,11 +43,14 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={colors}>
-      <PaperProvider>
-        <Home/>
-      </PaperProvider>
-    </ThemeProvider>
+    <StoreProvider store={store}>
+      <ThemeProvider theme={colors}>
+        <PaperProvider>
+          <Home/>
+        </PaperProvider>
+      </ThemeProvider>
+    </StoreProvider>
+    
   )
 }
 

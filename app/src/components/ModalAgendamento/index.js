@@ -8,6 +8,7 @@ import EspecialistaPicker from "../ModalAgendamento/Especialistas";
 import ModalHeader from "./header";
 import EspecialistasModal from "./Especialistas/modal";
 import PaymentPicker from "./payment"
+import { Box, Button } from "../../styles";
 
 const App = () => {
  
@@ -17,7 +18,7 @@ const App = () => {
 
   return (      
     <BottomSheet
-      index={2}        
+      index={0}        
       ref={sheetRef}
       snapPoints={snapPoints}
       renderContent={()=>{
@@ -34,10 +35,18 @@ const App = () => {
         <DateTimePicker/>
         <EspecialistaPicker/>
         <PaymentPicker/>
+        <Box hasPadding align="center">
+          <Button
+            icon="check"
+            background="primary"
+            mode="contained"
+            textColor="light"
+            uppercase={false}
+          >Confirmar meu agendamento</Button>
+        </Box>
       </ScrollView> 
       <EspecialistasModal/>
-      </>
-            
+      </>            
     </BottomSheet>         
   );
 };

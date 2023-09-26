@@ -107,7 +107,7 @@ font-family: ${(props) => (props.bold ? 'Ubuntu_700Bold' : 'Ubuntu_300Light')}
 
 export const Button = styled(ButtonPaper).attrs((props) =>({
   buttonColor: props.theme[props.background] || props.background || 'danger',
-  textColor: props.theme[props.textColor] || 'red'
+  textColor: props.theme[props.textColor] || "black"
 }))``
 
 export const TextInput = styled(TextInputPaper).attrs((props) => ({
