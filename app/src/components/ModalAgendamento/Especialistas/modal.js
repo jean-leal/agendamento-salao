@@ -9,23 +9,20 @@ import util from "../../../util";
 
 const EspecialistasModal = () => {
   return(
-    <Modal 
-      open={true}
-      
+    <Modal
+      open={false}      
     >
-      <ScrollView>
+      <ScrollView >
         <Box hasPadding direction="column">
           <Text bold color="dark">Corte de cabelo feminino</Text>
           <Text small>Disponiveis em 20/10/23 (Dom) às 11:30</Text>
-          <Box spacing="10px 0 0" row wrap="wrap">
+          <Box wrap="wrap" height="auto" spacing="10px 0 0">
             {[1,2,3,4,5,6,7,8,9,10].map(colaborador => (
-              
               <Touchable
-              border="1px solid"
-                width="90px"
+                width={(Dimensions.get('screen').width - 80) / 4}
                 height="90px"
                 spacing="10px 0px 0px 0px"
-                direction="cloumn"
+                direction="column"
                 align="center"
               >
                 <Cover 
@@ -36,9 +33,8 @@ const EspecialistasModal = () => {
                   border={colaborador === 1 ? `2px solid ${theme.colors.primary}` : "none"}
                   spacing="0px 0px 5px 0px"
                 />
-                <Text small bold >Juliana Santos</Text>
-              </Touchable>
-              
+                <Text small bold >Juliana</Text>
+              </Touchable>              
             ))}
           </Box>
         </Box>        
@@ -48,4 +44,3 @@ const EspecialistasModal = () => {
 }
  export default EspecialistasModal;
 
- aula 6 3;34;48

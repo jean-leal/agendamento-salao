@@ -18,7 +18,8 @@ const EspecialistaPicker = () => {
       <Box 
        row
        align="center"
-       hasPadding      
+       hasPadding    
+       removePaddingBottom  
       >
         <Box row align="center">
         <Cover

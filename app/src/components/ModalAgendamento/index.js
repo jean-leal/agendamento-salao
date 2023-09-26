@@ -7,6 +7,7 @@ import DateTimePicker from "./dateTime"
 import EspecialistaPicker from "../ModalAgendamento/Especialistas";
 import ModalHeader from "./header";
 import EspecialistasModal from "./Especialistas/modal";
+import PaymentPicker from "./payment"
 
 const App = () => {
  
@@ -32,6 +33,7 @@ const App = () => {
         <Resume/>
         <DateTimePicker/>
         <EspecialistaPicker/>
+        <PaymentPicker/>
       </ScrollView> 
       <EspecialistasModal/>
       </>

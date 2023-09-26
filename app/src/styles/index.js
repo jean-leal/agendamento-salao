@@ -35,14 +35,11 @@ border: ${(props) => props.border || 'none'};
 `;
 
 export const Touchable = styled.TouchableOpacity`
-  flex: 1;
-  flex-direction: ${(props) => (props.direction || 'row' )};
+  flex-direction: ${(props) => props.direction || 'row'};
   justify-content: ${(props) => props.justify || 'flex-start'};
   align-items: ${(props) => props.align || 'flex-start'};
   width: ${(props) => props.width || '100%'};
-  max-width: ${(props) => props.width || '100%'};
   height: ${(props) => props.height || 'auto'};
-  max-height: ${(props) => props.height || 'auto'};
   padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
   margin: ${(props) => props.spacing || 0};
   border-radius: ${(props) => (props.rounded || 0)};
