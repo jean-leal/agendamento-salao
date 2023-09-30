@@ -1,5 +1,5 @@
 import types from './types';
-import {produce} from 'immer';
+import produce from 'immer';
 import consts from '../../../consts';
 
 const INITIAL_STATE = {
@@ -27,7 +27,7 @@ function salao(state = INITIAL_STATE, action) {
   switch(action.type) {
     case types.UPDATE_SALAO: {
       return produce(state, (draft) => {
-        draft.sala = {...draft.salao, ...action.salao};
+        draft.salao = {...draft.salao, ...action.salao};
       })
     }
     default:
@@ -37,6 +37,6 @@ function salao(state = INITIAL_STATE, action) {
 
 export default salao;
 
-aula 6 3,59,09
+//aula 6 3,59,09
 
-corrigir o erro do immer
+//corrigir o erro do immer

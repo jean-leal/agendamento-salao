@@ -1,4 +1,22 @@
-import { applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import thunk from 'redux-thunk';   
+
+import rootReducer from './modules/rootReducer';
+import rootSaga from './modules/rootSaga';
+import Reactotron from '../config/reactotron';
+
+const sagaMiddleware = createSagaMiddleware(thunk);
+
+const store = createStore(
+  rootReducer,
+  compose(applyMiddleware(sagaMiddleware), Reactotron.createEnhancer())
+);
+
+sagaMiddleware.run(rootSaga);
+
+export default store;
+/*import { applyMiddleware, compose} from 'redux';
 import { legacy_createStore as createStore} from 'redux'
 
 
@@ -16,4 +34,4 @@ const store = createStore( rootReducer, compose(applyMiddleware(sagaMiddleware),
 
 sagaMiddleware.run(rootSaga);
 
-export default store;
+export default store;*/
