@@ -37,6 +37,5 @@ function salao(state = INITIAL_STATE, action) {
 
 export default salao;
 
-//aula 6 3,59,09
 
-//corrigir o erro do immer
+

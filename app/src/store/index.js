@@ -1,37 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import thunk from 'redux-thunk';   
+import thunkMiddleware from 'redux-thunk'
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 import Reactotron from '../config/reactotron';
 
-const sagaMiddleware = createSagaMiddleware(thunk);
+const sagaMiddleware = createSagaMiddleware();
+const middlewareEnhancer = applyMiddleware(sagaMiddleware, thunkMiddleware)
+const composedEnhancers = compose(middlewareEnhancer, Reactotron.createEnhancer())
 
 const store = createStore(
   rootReducer,
-  compose(applyMiddleware(sagaMiddleware), Reactotron.createEnhancer())
+  undefined, 
+  composedEnhancers
 );
 
 sagaMiddleware.run(rootSaga);
 
 export default store;
-/*import { applyMiddleware, compose} from 'redux';
-import { legacy_createStore as createStore} from 'redux'
-
-
-import thunk from 'redux-thunk';
-import createSagaMiddleware from 'redux-saga'
-
-import rootReducer from './modules/rootReducer';
-import rootSaga from './modules/rootSaga';
-import Reactotron from '../config/reactotron';
-
-const sagaMiddleware = createSagaMiddleware(thunk);
-
-const store = createStore( rootReducer, compose(applyMiddleware(sagaMiddleware), Reactotron.createEnhancer()
-  ));
-
-sagaMiddleware.run(rootSaga);
-
-export default store;*/
