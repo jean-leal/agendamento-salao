@@ -1,12 +1,17 @@
 import React from 'react';
 import { Box, GradientView, Cover, Title, Text, Badge, Touchable, Button, TextInput} from '../../styles';
 
-import {colors} from '../../styles/theme.json'
+import {colors} from '../../styles/theme.json';
+import { Linking, Share } from 'react-native';
+
+import { useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Header = () => {
+  const { salao } = useSelector(state => state.salao);
+
   return (    
     <>         
       <Cover 
@@ -19,26 +24,39 @@ const Header = () => {
           justify="flex-end"
         >
           <Badge background='success'>ABERTO</Badge>
-          <Title color='light'>Salão Teste</Title>
-          <Text color='light' >Porto Alegre  •</Text>
+          <Title color='light'>{salao.nome}</Title>
+          <Text color='light' >{salao?.endereco?.cidade}</Text>
         </GradientView>
       </Cover> 
       <Box background='light' align= 'center' row >
         <Box  row justify= 'space-between'>
           <Box>
-            <Touchable direction='column' align='center'>
+            <Touchable 
+              direction='column' 
+              align='center'
+              onPress={() => Linking.openURL(`tel:${salao.telefone}`)}>
               <Icon name='phone' size={24} color={colors.muted}/>
               <Text small spacing='10px 0 0 ' color='muted' >Ligar</Text>
             </Touchable>
           </Box>
           <Box>
-            <Touchable direction='column' align='center'>
+            <Touchable 
+              direction='column'
+              align='center' 
+              onPress={() => Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=-23.797092,-53.0598672`)}>
               <Icon name='map-marker' size={24} color={colors.muted}/>
               <Text small spacing='10px 0 0 ' color='muted' >Visitar</Text>
             </Touchable>
           </Box>
           <Box>
-            <Touchable direction='column' align='center' >
+            <Touchable 
+              direction='column' 
+              align='center'
+              onPress={() =>{
+                Share.share({
+                  message: `${salao.nome}`
+                })
+              }} >
               <Icon name='share' size={24} color={colors.muted}/>
               <Text small spacing='10px 0 0 ' color='muted' >Enviar</Text>
             </Touchable>
@@ -64,7 +82,7 @@ const Header = () => {
     </>   
   ) 
 }
-
+6 4,10:44
   
 export default Header;
 

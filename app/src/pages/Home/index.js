@@ -13,7 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() =>{
-    dispatch(getSalao)
+    dispatch(getSalao())
   }, [])
 
  return (
