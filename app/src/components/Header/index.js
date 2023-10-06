@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Header = () => {
-  const { salao } = useSelector(state => state.salao);
+  const { salao, servicos } = useSelector(state => state.salao);
 
   return (    
     <>         
@@ -23,7 +23,7 @@ const Header = () => {
           hasPadding
           justify="flex-end"
         >
-          <Badge background='success'>ABERTO</Badge>
+          <Badge background={salao.isOpened ? 'success' : 'danger'}>{salao.isOpened ? "ABERTO" : "FECHADO"}</Badge>
           <Title color='light'>{salao.nome}</Title>
           <Text color='light' >{salao?.endereco?.cidade}</Text>
         </GradientView>
@@ -76,13 +76,12 @@ const Header = () => {
         </Box>
       </Box>
       <Box hasPadding direction='column' background='light' spacing='10px 0 0'>
-        <Title small> Serviços (2)</Title>
+        <Title small> Serviços ({servicos.length})</Title>
         <TextInput placeholder='Digite o nome do serviço...'/>
       </Box>
     </>   
   ) 
 }
-6 4,10:44
-  
+
 export default Header;
 

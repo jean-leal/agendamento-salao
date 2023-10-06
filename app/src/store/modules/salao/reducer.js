@@ -30,6 +30,11 @@ function salao(state = INITIAL_STATE, action) {
         draft.salao = {...draft.salao, ...action.salao};
       })
     }
+    case types.UPDATE_SERVICOS: {
+      return produce(state, (draft) => {
+        draft.servicos = action.servicos;
+      })
+    }
     default:
       return state;
   }

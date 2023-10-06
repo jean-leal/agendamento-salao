@@ -1,7 +1,8 @@
 import React from "react";
 import { Text, Box, Touchable, Cover, Title, Button} from "../../styles/index";
+import moment from "moment";
 
-const Servico = () => {
+const Servico = ( { servico } ) => {
   return(
     <Touchable 
       height="120px"
@@ -14,10 +15,10 @@ const Servico = () => {
       />
       <Box direction="column">
         <Text bold color="dark">
-          Corte de cabelo feminino.
+          {servico.item.titulo}
         </Text>
         <Text small>
-          R$ 45  • 30 min
+          R$ {servico.item.preco}  • {moment(servico.item.duracao).format('HH:mm')} min
         </Text>
       </Box>
       <Box>
@@ -34,5 +35,5 @@ const Servico = () => {
    
   )
 }
-
+6 4,27;43
 export default Servico;

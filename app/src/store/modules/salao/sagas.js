@@ -3,7 +3,7 @@ import api from "../../../services/api";
 import consts from '../../../consts';
 
 import types from './types';
-import { updateSalao } from './actions';
+import { updateSalao, upadateServicos } from './actions';
 
 export function* getSalao(){
   try {
@@ -19,4 +19,22 @@ export function* getSalao(){
   }
 }
 
-export default all([takeLatest(types.GET_SALAO, getSalao)]);
+export function* allServicos(){
+  try {
+    const { data: res} = yield call(api.get, `/servico/salao/${consts.salaoId}`)
+    if (res.error) {
+      alert(err.message)
+      return false;
+    }
+
+    yield put(upadateServicos(res.servicos))
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+
+export default all([
+  takeLatest(types.GET_SALAO, getSalao),
+  takeLatest(types.ALL_SERVICOS, allServicos)
+]);
