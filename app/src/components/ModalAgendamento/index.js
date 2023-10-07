@@ -1,4 +1,4 @@
-import React, { useMemo, createRef } from "react";
+import React, { useMemo, createRef, useEffect, useRef, useState } from "react";
 import { StyleSheet, ScrollView, Dimensions } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -10,15 +10,18 @@ import EspecialistasModal from "./Especialistas/modal";
 import PaymentPicker from "./payment"
 import { Box, Button } from "../../styles";
 
-const App = () => {
+import { useSelector } from "react-redux";
+
+const ModalAgendamento = () => {
  
-  const sheetRef = createRef();
+  const sheetRef = useRef(null);
+  const {form , agendamento, servicos} = useSelector(state => state.salao)
 
-  const snapPoints = useMemo(() => ["1", 90, Dimensions.get('window').height - 40], []);
-
+  const snapPoints = useMemo(() => [1, 90, Dimensions.get('window').height - 90], []);
+  
   return (      
     <BottomSheet
-      index={0}        
+      index={form.modalAgendamento}        
       ref={sheetRef}
       snapPoints={snapPoints}
       renderContent={()=>{
@@ -31,7 +34,7 @@ const App = () => {
         stickyHeaderIndices={[0]}
       >
         <ModalHeader/>
-        <Resume/>
+        <Resume agendamento={agendamento} servicos={servicos}/>
         <DateTimePicker/>
         <EspecialistaPicker/>
         <PaymentPicker/>
@@ -58,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ModalAgendamento;

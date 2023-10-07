@@ -10,8 +10,14 @@ import Servico from '../../components/Servico';
 import ModalAgendamento from "../../components/ModalAgendamento"
 
 const Home = () => {
-  const { servicos } = useSelector(state => state.salao)
+  const { servicos, form } = useSelector(state => state.salao)
   const dispatch = useDispatch();
+
+  const finalServicos =  form.inputFiltro.length > 0 ? servicos.filter((s)=> {
+    const titulo = s.titulo.toLowerCase().trim();
+    const arrSearch = form.inputFiltro. toLowerCase().trim().split(' ');
+    return arrSearch.every((w) => titulo.search(w) !== - 1)
+    }): servicos
 
   useEffect(() =>{
     dispatch(getSalao());
@@ -22,9 +28,9 @@ const Home = () => {
   <GestureHandlerRootView>
     <FlatList
     ListHeaderComponent={Header} 
-    data={servicos}
-    renderItem={(item)=> (<Servico servico={item} key={item}/>)}
-    keyExtractor={(item) => item}
+    data={finalServicos}
+    renderItem={(servico)=> (<Servico servico={servico} key={servico}/>)}
+    keyExtractor={(servico) => servico}
   >
   </FlatList>  
   <ModalAgendamento/>
@@ -33,5 +39,3 @@ const Home = () => {
 }
 
 export default Home;
-
-// aula 2,29

@@ -3,7 +3,7 @@ import api from "../../../services/api";
 import consts from '../../../consts';
 
 import types from './types';
-import { updateSalao, upadateServicos } from './actions';
+import { updateSalao, updateServicos } from './actions';
 
 export function* getSalao(){
   try {
@@ -27,7 +27,7 @@ export function* allServicos(){
       return false;
     }
 
-    yield put(upadateServicos(res.servicos))
+    yield put(updateServicos(res.servicos))
   } catch (err) {
     alert(err.message);
   }

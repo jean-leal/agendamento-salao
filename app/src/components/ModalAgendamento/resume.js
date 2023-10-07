@@ -3,21 +3,25 @@ import React from "react";
 import { Text, Title, Spacer, Box, Cover } from "../../styles";
 import theme from "../../styles/theme.json";
 import util from "../../util";
+import consts from "../../consts";
 
 
-const Resume= () => {
+const Resume = ({agendamento, servicos}) => {
+  const servico = servicos.filter(s => s._id === agendamento.servicoId)[0]
+
+
   return(
     <Box align="center" row hasPadding background={util.toAlpha(theme.colors.muted, 5)}>
       <Cover 
         width={"80px"}
         height={"80px"}
-        image="https://imgs.search.brave.com/oeDPUDa9OpQypfKej-rittW3rVkm_NwWJYMgc2c14-0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9mYXNo/aW9uYnViYmxlcy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMDMvQ29ydGUt/ZGUtY2FiZWxvLWN1/cnRvLTIwMjAtbW9y/ZW5hLTExLTQwMHg2/MDAuanBn"
-      />
+        image={consts.image}
+/>
       <Box >
-        <Title>Corte de cabelo.</Title>
+        <Title>{servico?.titulo}</Title>
         <Spacer/>
         <Text small>
-          Total: R$ 50,00
+          Total: R$ {servico?.preco}
         </Text>
       </Box>
     </Box>
