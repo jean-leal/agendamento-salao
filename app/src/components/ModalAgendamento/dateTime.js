@@ -1,28 +1,52 @@
 import React from "react";
-
+import moment from "moment/min/moment-with-locales";
 import { FlatList } from 'react-native-gesture-handler';
+
+import { useDispatch } from "react-redux";
+
+import { updateAgendamento } from "../../store/modules/salao/actions";
 
 import { Text, Title, Touchable, Spacer, Box } from "../../styles";
 import theme from "../../styles/theme.json";
 import util from "../../util";
 
-const DateTime = () => {
+moment.locale('pt-br')
+
+const DateTime = ({ 
+  servico, 
+  agenda, 
+  dataSelecionada, 
+  horaSelecionada, 
+ horariosDisponiveis,
+}) => {
+
+  const dispatch = useDispatch();
+
+  const setAgendamento = (value, isTime = false) => {
+    const { horariosDisponiveis } = util.selectAgendamento(agenda, isTime ? dataSelecionada : value)
+    let data = !isTime ? `${value}T${horariosDisponiveis[0][0]}`: `${dataSelecionada}T${value}`
+    dispatch(updateAgendamento({ data }))
+  }
   return (
     <>
       <Text bold color="dark" hasPadding>
         Para quando você gostaria de agendar?
       </Text>
       <FlatList
-        data={["a", "b", "c", "d", "e"]}
+        data={agenda}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item)=> item}
          contentContainerStyle={{
               paddingLeft: 20
             }}
-        renderItem={({item}) => (
+        renderItem={({item}) => {
+          const date = moment(Object.keys(item)[0]);
+          const dateISO = moment(date).format('YYYY-MM-DD');
+          const selected = dateISO === dataSelecionada;
+          return (
           <Touchable
-            key={item}
+            key={dateISO}
             width="70px"
             height="80px"
             spacing="0 10px 0 0"
@@ -31,24 +55,20 @@ const DateTime = () => {
             justify="center"
             align="center"
             border={`1px solid ${item === "a" ? theme.colors.primary : util.toAlpha(theme.colors.muted, 20)}`}
-            background={item === "a" ? "primary" : "light"}
+            background={selected ? "primary" : "light"}
+            onPress={() => setAgendamento(dateISO)}
           >
-            <Text small color={item === "a" ? "light" : undefined }>Dom</Text>
-            <Title small color={item === "a" ? "light" : undefined }>19</Title>
-            <Text small color={item === "a" ? "light" : undefined }>Abril</Text>
+            <Text small color={selected ? "light" : undefined }>{util.diasSemana[date.day()]}</Text>
+            <Title small color={selected ? "light" : undefined }>{date.format('DD')}</Title>
+            <Text small color={selected ? "light" : undefined }>{date.format('MMMM')}</Text>
           </Touchable>               
-        )}  
+        )}}
       />
       <Text bold color="dark" hasPadding>
         Que horas?
       </Text>
       <FlatList
-        data={[
-          ['14:30', '15:30'],
-          ['15:30', '16:00'],
-          ['16:30', '17:00'],
-          ['17:30'],
-        ]}
+        data={horariosDisponiveis}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
@@ -56,7 +76,9 @@ const DateTime = () => {
         }}
         renderItem={({item}) => (
           <Box direction="column" spacing={"0 10px 0 0"} >
-            { item.map((horario) =>(
+            { item.map((horario) => { 
+            const selected = horario === horaSelecionada
+            return (
             <Touchable
             key={horario}
             width="100px"
@@ -66,12 +88,15 @@ const DateTime = () => {
             direction="column"
             justify="center"
             align="center"
-            border={`1px solid ${horario === "14:30" ? theme.colors.primary : util.toAlpha(theme.colors.muted, 20)}`}
-            background={horario === "14:30" ? "primary" : "light"}
+            border={`1px solid ${selected ? theme.colors.primary : util.toAlpha(theme.colors.muted, 20)}`}
+            background={selected ? "primary" : "light"}
+            onPress={() => setAgendamento(horario, true)}
             >
-              <Text color={horario === "14:30" ? "light" : undefined}>{horario}</Text>
+              <Text color={selected ? "light" : undefined}>{horario}</Text>
             </Touchable>
-          ))}
+          )
+          })
+        }
           </Box>
         )}
         

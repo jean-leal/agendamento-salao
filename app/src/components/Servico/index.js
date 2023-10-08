@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Box, Touchable, Cover, Title, Button} from "../../styles/index";
 import moment from "moment";
 
-import { updateAgendamento } from "../../store/modules/salao/actions"
+import { updateAgendamento, filterAgenda } from "../../store/modules/salao/actions"
 
 import { useDispatch } from "react-redux";
 
@@ -12,6 +12,7 @@ const Servico = ( { servico } ) => {
 
   const press = () => {    
     dispatch(updateAgendamento({ servicoId: servico.item._id}))
+    dispatch(filterAgenda())
   }
   
   return(

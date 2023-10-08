@@ -25,5 +25,13 @@ export function updateAgendamento(agendamento) {
 }
 
 export function updateAgenda(agenda) {
-  return {types: types.UPDATE_AGENDA, agenda}
+  return {type: types.UPDATE_AGENDA, agenda}
+}
+
+export function filterAgenda() {
+  return{type: types.FILTER_AGENDA}
+}
+
+export function updateColaboradores(colaboradores) {
+  return{type: types.UPDATE_COLABORADORES, colaboradores}
 }

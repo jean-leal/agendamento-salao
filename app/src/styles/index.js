@@ -13,6 +13,8 @@ import {
   TextInput as TextInputPaper,
 } from "react-native-paper";
 
+import { TouchableOpacity }from "react-native-gesture-handler";
+
 export const Box = styled.View`
 flex: 1;
 flex-wrap: ${(props) => props.wrap || 'nowrap'};
@@ -34,7 +36,7 @@ border: ${(props) => props.border || 'none'};
   background: ${(props) => props.theme[props.background] || props.background || 'transparent'};
 `;
 
-export const Touchable = styled.TouchableOpacity`
+export const Touchable = styled(TouchableOpacity)`
   flex-direction: ${(props) => props.direction || 'row'};
   justify-content: ${(props) => props.justify || 'flex-start'};
   align-items: ${(props) => props.align || 'flex-start'};

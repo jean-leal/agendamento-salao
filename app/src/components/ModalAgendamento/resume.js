@@ -6,9 +6,7 @@ import util from "../../util";
 import consts from "../../consts";
 
 
-const Resume = ({agendamento, servicos}) => {
-  const servico = servicos.filter(s => s._id === agendamento.servicoId)[0]
-
+const Resume = ({servico}) => {
 
   return(
     <Box align="center" row hasPadding background={util.toAlpha(theme.colors.muted, 5)}>
@@ -27,5 +25,6 @@ const Resume = ({agendamento, servicos}) => {
     </Box>
   )
 }
+
 
 export default Resume;
