@@ -1,22 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import Modal from "react-native-simple-modal";
 import { Dimensions } from "react-native";
 
 import {Text, Box, Touchable, Cover} from '../../../styles';
 import theme from "../../../styles/theme.json";
+import moment from "moment";
 
-const EspecialistasModal = () => {
+import { useDispatch, useSelector } from "react-redux";
+
+import {updateAgendamento, updateForm} from "../../../store/modules/salao/actions";
+
+const EspecialistasModal = (
+  form, 
+  colaboradores, 
+  agendamento,
+  servicos,
+  horaSelecionada,
+  colaboradoresDia) => {
+
+    const dispatch = useDispatch();
+    let colaboradoresIdsDisponiveis = [];
+  
+    for (let colaboradorId of Object.keys(colaboradoresDia)) {
+      let horarios = colaboradoresDia[colaboradorId].flat(2);
+      if (horarios.includes(horaSelecionada)) {
+        colaboradoresIdsDisponiveis.push(colaboradorId);
+      }
+    }
+
+    const colaboradoresDisponiveis = colaboradores.filter(c => colaboradoresIdsDisponiveis.includes(c._id));
+  
+      
+    console.log(colaboradoresIdsDisponiveis)
+    //const servico = servicos.filter((c) => c._id === agendamento.servicoId)[0];
+  
+
   return(
     <Modal
-      open={false}      
+      open={true}   
+     // modalDidClose={() => dispatch(updateForm({modalEspecialista: false}))}   
     >
       <ScrollView >
         <Box hasPadding>
-          <Text bold color="dark">Corte de cabelo feminino</Text>
-          <Text small>Disponiveis em 20/10/23 (Dom) às 11:30</Text>
+          <Text bold color="dark"></Text>
+          <Text small>Disponiveis em {moment(agendamento?.data).format('DD/MM/YYYY [às] HH:mm')}</Text>
           <Box wrap="wrap" spacing="10px 0 0 0" direction="column">
-            {[1,2,3,4,5,6,7,8,9,10].map(colaborador => (
+            {["1", "2"].map((colaborador) => (
               <Box
                 border={`2px solid ${theme.colors.primary}` }
                 height={85}
@@ -25,9 +55,7 @@ const EspecialistasModal = () => {
                 maxWidth={85}
                 >
                 <Touchable
-                border={`2px solid ${theme.colors.primary}` }
-                  
-                  
+                  border={`2px solid ${theme.colors.primary}` }
                   direction="column"
                   align="center"
                 >
@@ -36,10 +64,10 @@ const EspecialistasModal = () => {
                     height="45px"
                     width="45px"
                     circle
-                    border={colaborador === 1 ? `2px solid ${theme.colors.primary}` : "none"}
+                    border={"colaborador._id === agendamento.colaboradorId" ? `2px solid ${theme.colors.primary}` : "none"}
                     spacing="0px 0px 5px 0px"
                   />
-                  <Text small bold >Juliana</Text>
+                  <Text small bold >{colaborador}</Text>
                 </Touchable> 
               </Box>
                            

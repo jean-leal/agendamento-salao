@@ -34,13 +34,14 @@ export default {
       data = data || Object.keys(agenda?.[0])?.[0];
       const dia = agenda.filter((a) => Object.keys(a)[0] === data)?.[0]
       const diaObject = dia?.[data];
+      console.tron.log(dia)
       if(diaObject) {
         colaboradorId = colaboradorId || Object.keys(diaObject)?.[0]
         colaboradoresDia = diaObject;
         horariosDisponiveis = colaboradoresDia?.[colaboradorId]
       }
     }
-
+   
     return {horariosDisponiveis, data, colaboradoresDia, colaboradorId}
   }
 };

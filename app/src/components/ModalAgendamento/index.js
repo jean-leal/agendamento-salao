@@ -17,11 +17,11 @@ import { useSelector } from "react-redux";
 const ModalAgendamento = () => {
  
   const sheetRef = useRef(null);
-  const {form , agendamento, servicos, agenda} = useSelector(state => state.salao)
+  const {form , agendamento, servicos, agenda, colaboradores} = useSelector(state => state.salao)
 
   const dataSelecionada = moment(agendamento.data).format('YYYY-MM-DD')
   const horaSelecionada = moment(agendamento.data).format('HH:mm')
-
+console.log(agendamento)
   const {horariosDisponiveis, colaboradoresDia} = util.selectAgendamento(agenda, dataSelecionada, agendamento.colaboradorId)
 
   const snapPoints = useMemo(() => [1, 90, Dimensions.get('window').height - 90], []);
@@ -51,7 +51,10 @@ const ModalAgendamento = () => {
           horaSelecionada={horaSelecionada}
           horariosDisponiveis={horariosDisponiveis}
           />
-        <EspecialistaPicker/>
+        <EspecialistaPicker
+          colaboradores={colaboradores}
+          agendamento={agendamento}
+        />
         <PaymentPicker/>
         <Box hasPadding align="center">
           <Button
@@ -63,7 +66,7 @@ const ModalAgendamento = () => {
           >Confirmar meu agendamento</Button>
         </Box>
       </ScrollView> 
-      <EspecialistasModal/>
+      
       </>            
     </BottomSheet>         
   );
@@ -77,3 +80,12 @@ const styles = StyleSheet.create({
 });
 
 export default ModalAgendamento;
+
+/* <EspecialistasModal
+        form={form}
+        colaboradores={colaboradores}
+        agendamento={agendamento}
+        servicos={servicos}
+        horaSelecionada={horaSelecionada}
+        colaboradoresDia={colaboradoresDia}
+    />*/
