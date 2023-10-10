@@ -21,12 +21,12 @@ const ModalAgendamento = () => {
 
   const dataSelecionada = moment(agendamento.data).format('YYYY-MM-DD')
   const horaSelecionada = moment(agendamento.data).format('HH:mm')
-console.log(agendamento)
   const {horariosDisponiveis, colaboradoresDia} = util.selectAgendamento(agenda, dataSelecionada, agendamento.colaboradorId)
 
   const snapPoints = useMemo(() => [1, 90, Dimensions.get('window').height - 90], []);
 
   const servico = servicos.filter(s => s._id === agendamento.servicoId)[0]
+  
   
   return (      
     <BottomSheet
@@ -66,7 +66,14 @@ console.log(agendamento)
           >Confirmar meu agendamento</Button>
         </Box>
       </ScrollView> 
-      
+      <EspecialistasModal
+        form={form}
+        colaboradores={colaboradores}
+        agendamento={agendamento}
+        servicos={servicos}
+        horaSelecionada={horaSelecionada}
+        colaboradoresDia={colaboradoresDia}
+    />
       </>            
     </BottomSheet>         
   );
@@ -80,12 +87,3 @@ const styles = StyleSheet.create({
 });
 
 export default ModalAgendamento;
-
-/* <EspecialistasModal
-        form={form}
-        colaboradores={colaboradores}
-        agendamento={agendamento}
-        servicos={servicos}
-        horaSelecionada={horaSelecionada}
-        colaboradoresDia={colaboradoresDia}
-    />*/
