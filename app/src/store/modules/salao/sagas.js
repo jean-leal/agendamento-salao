@@ -4,14 +4,14 @@ import moment from 'moment';
 import api from "../../../services/api";
 import consts from '../../../consts';
 import types from './types';
-import { updateSalao, updateServicos, updateAgenda, updateColaboradores, updateAgendamento } from './actions';
+import { updateSalao, updateServicos, updateAgenda, updateColaboradores, updateAgendamento, updateForm } from './actions';
 import util from '../../../util';
 
 export function* getSalao(){
   try {
     const { data: res} = yield call(api.get, `/salao/${consts.salaoId}`)
     if (res.error) {
-      alert(err.message)
+      alert(res.message)
       return false;
     }
 
@@ -25,7 +25,7 @@ export function* allServicos(){
   try {
     const { data: res} = yield call(api.get, `/servico/salao/${consts.salaoId}`)
     if (res.error) {
-      alert(err.message)
+      alert(res.message)
       return false;
     }
 
@@ -44,7 +44,7 @@ export function* filterAgenda(){
       data: moment().format('YYYY-MM-DD')
     })
     if (res.error) {
-      alert(error.message)
+      alert(res.message)
       return false;
     }
 
@@ -65,8 +65,29 @@ export function* filterAgenda(){
   }
 }
 
+export function* saveAgendamento(){
+  try {
+    yield put(updateForm({agendamentoLoading: true}))
+
+    const {agendamento} = yield select((state) => state.salao);
+
+    const { data: res} = yield call(api.post, `/agendamento`, agendamento)
+    if (res.error) {
+      alert(res.message)
+      return false;
+    }
+
+    yield put(updateForm({agendamentoLoading: false}))
+    alert("agendado com sucesso!")
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+
 export default all([
   takeLatest(types.GET_SALAO, getSalao),
   takeLatest(types.ALL_SERVICOS, allServicos),
-  takeLatest(types.FILTER_AGENDA, filterAgenda)
+  takeLatest(types.FILTER_AGENDA, filterAgenda),
+  takeLatest(types.SAVE_AGENDAMENTO, saveAgendamento)
 ]);

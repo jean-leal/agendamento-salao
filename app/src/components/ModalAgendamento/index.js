@@ -1,4 +1,4 @@
-import React, { useMemo, createRef, useEffect, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import { StyleSheet, ScrollView, Dimensions } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import moment from "moment";
@@ -9,12 +9,17 @@ import EspecialistaPicker from "../ModalAgendamento/Especialistas";
 import ModalHeader from "./header";
 import EspecialistasModal from "./Especialistas/modal";
 import PaymentPicker from "./payment"
-import { Box, Button } from "../../styles";
+import { Box, Button, Title, Text } from "../../styles";
 import util from "../../util";
+import theme from "../../styles/theme.json"
 
-import { useSelector } from "react-redux";
+import { ActivityIndicator } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { saveAgendamento } from "../../store/modules/salao/actions";
 
 const ModalAgendamento = () => {
+
+  const dispatch = useDispatch()
  
   const sheetRef = useRef(null);
   const {form , agendamento, servicos, agenda, colaboradores} = useSelector(state => state.salao)
@@ -44,7 +49,8 @@ const ModalAgendamento = () => {
       >
         <ModalHeader/>
         <Resume servico={servico}/>
-        <DateTimePicker
+        {agenda.length > 0 &&<>
+          <DateTimePicker
           servico={servico}
           agenda={agenda}
           dataSelecionada={dataSelecionada}
@@ -58,13 +64,34 @@ const ModalAgendamento = () => {
         <PaymentPicker/>
         <Box hasPadding align="center">
           <Button
+            loading={form.agendamentoLoading}
+            disabled={form.agendamentoLoading}
             icon="check"
             background="primary"
             mode="contained"
             textColor="light"
             uppercase={false}
+            onPress={() => dispatch(saveAgendamento())}
           >Confirmar meu agendamento</Button>
         </Box>
+        </>}
+        {agenda.length === 0 &&(
+          <Box 
+          height={Dimensions.get('window').height - 200}
+          background="light"
+          direction="column"
+          hasPadding
+          justify="center" 
+          align="center">
+            <ActivityIndicator
+            size="large"
+            color={theme.colors.primary}
+            />
+            <Title align="center">Só um instante...</Title>
+            <Text small align="center">Estamos buscando o melhor horário para você...</Text>
+          </Box>
+        )}
+        
       </ScrollView> 
       <EspecialistasModal
         form={form}

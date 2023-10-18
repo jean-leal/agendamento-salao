@@ -35,3 +35,7 @@ export function filterAgenda() {
 export function updateColaboradores(colaboradores) {
   return{type: types.UPDATE_COLABORADORES, colaboradores}
 }
+
+export function saveAgendamento() {
+  return{type: types.SAVE_AGENDAMENTO}
+}
