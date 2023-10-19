@@ -16,12 +16,14 @@ const Servico = ( { servico } ) => {
   }
   
   return(
-    <Touchable 
+  <>
+<Touchable 
       height="120px"
       hasPadding
       background="light"
       align="center"
       onPress={press}
+      key={servico.item._id}
     >
       <Cover 
         image="https://imgs.search.brave.com/SGHr2nktMJT7-HwiMi0wPNtfb3rKTdllFfn-_ttfxZg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9mYXNo/aW9uYnViYmxlcy5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjEvMDEvZmxhdmlh/Mi5qcGc"
@@ -46,6 +48,8 @@ const Servico = ( { servico } ) => {
           </Button>
         </Box>
     </Touchable>
+  </>
+    
    
   )
 }

@@ -76,11 +76,11 @@ const DateTime = ({
         }}
         renderItem={({item}) => (
           <Box direction="column" spacing={"0 10px 0 0"} >
-            { item.map((horario) => { 
+            { item.map((horario, index) => { 
             const selected = horario === horaSelecionada
             return (
             <Touchable
-            key={horario}
+            key={index}
             width="100px"
             height="35px"
             spacing="0 0 5px 0"

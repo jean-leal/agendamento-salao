@@ -6,6 +6,7 @@ import theme from "../../../styles/theme.json";
 import { useDispatch } from "react-redux";
 
 import { updateForm } from "../../../store/modules/salao/actions";
+import { modalRef as ModalLoginRef } from "./modal";
 
 const EspecialistaPicker = ({colaboradores, agendamento}) => {
 
@@ -45,7 +46,7 @@ const EspecialistaPicker = ({colaboradores, agendamento}) => {
             background={theme.colors.muted}
             mode="contained"
             block
-            onPress={() => dispatch(updateForm({modalEspecialista: true}))}
+            onPress={() => ModalLoginRef.current?.open()}
           >Trocar Especialista</Button>
         </Box>
       </Box>

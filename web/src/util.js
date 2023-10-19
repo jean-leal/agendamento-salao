@@ -1,3 +1,4 @@
+// eslint-disable-next-line 
 export default {
   hourToMinutes: (hourMinute) => {
     //receber horas como 1:30

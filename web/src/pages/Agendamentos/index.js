@@ -18,11 +18,12 @@ const Agendamentos = () => {
   const formatEventos = agendamentos.map(agendamento => ({
     title: `${agendamento.servicoId.titulo} - ${agendamento.clienteId.nome} - ${agendamento.colaboradorId.nome}`, 
     start: moment(agendamento.data).toDate(), 
-    end: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH-mm')
+    end: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')
     ), 'minutes').toDate()
   }));
 
   const formatRange = (periodo) => {
+    
     let finalRange = {};
     if (Array.isArray(periodo)) {
       finalRange = {
@@ -35,10 +36,10 @@ const Agendamentos = () => {
         end: moment(periodo.end).format('YYYY-MM-DD'),
       }
     }
-
+ 
     return finalRange;
   }
-
+  
   useEffect(() => {
 
     dispatch(filterAgendamentos(

@@ -50,7 +50,7 @@ export const Touchable = styled(TouchableOpacity)`
 `;
 
 export const Title = styled(TitlePaper)`
-  color: ${(props) => props.theme[props.color || "dark"]};
+  color: ${(props) => props.theme[props.color || 'dark']};
   font-size: ${(props) => (props.small ? '22px' : '30px')};
   padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
   letter-spacing: -0.8px;
@@ -73,8 +73,8 @@ export const Cover = styled.ImageBackground.attrs((props) =>
       }
     : undefined
 )`
-  width: ${(props) => props.width || "100px"};
-  height: ${(props) => props.height || "100px"};
+  width: ${(props) => props.width || '100'};
+  height: ${(props) => props.height || '100'};
   margin: ${(props) => props.spacing || '0 10px 0 0 '};
   border-radius: ${(props) => (props.circle ? props.width : '3px')};
   border: ${(props) => props.border || 'none'};
