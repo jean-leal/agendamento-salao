@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, Box, Touchable, Cover, Title, Button} from "../../styles/index";
+import { Text, Box, Touchable, Cover, Button} from "../../styles/index";
 import moment from "moment";
 
-import { updateAgendamento, filterAgenda } from "../../store/modules/salao/actions"
+import { resetAgendamento, updateAgendamento, filterAgenda } from "../../store/modules/salao/actions"
 
 import { useDispatch } from "react-redux";
 
@@ -11,6 +11,7 @@ const Servico = ( { servico } ) => {
   const dispatch = useDispatch()
 
   const press = () => {    
+    dispatch(resetAgendamento())
     dispatch(updateAgendamento({ servicoId: servico.item._id}))
     dispatch(filterAgenda())
   }
@@ -41,8 +42,7 @@ const Servico = ( { servico } ) => {
             icon="clock-check-outline"
             background="success"
             mode="conteined"
-            textColor="light"
-            
+            textColor="light"            
           >
             Agendar
           </Button>

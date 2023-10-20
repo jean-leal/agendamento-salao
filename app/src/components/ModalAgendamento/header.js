@@ -3,10 +3,21 @@ import React from "react";
 import { Touchable, GradientView, Text, Box, Spacer } from "../../styles";
 import { View, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { updateForm, resetAgendamento } from "../../store/modules/salao/actions"
+
+import { useDispatch, useSelector } from "react-redux";
 
 import theme from '../../styles/theme.json'
 
 const ModalHeader = () => {
+
+  const {form} = useSelector(state => state.salao)
+
+  const dispatch = useDispatch()
+
+  const press = () => {
+    form.modalAgendamento === 2 ? dispatch(updateForm({modalAgendamento: 1}), resetAgendamento()) : ''
+  }
   return(
     <View style={styles.headerContainer}>
       <GradientView 
@@ -16,7 +27,7 @@ const ModalHeader = () => {
         >
         <Box row>
         <Text>
-          <Touchable hasPadding>
+          <Touchable hasPadding onPress={press}>
           <Icon name="chevron-left" color={theme.colors.light} size={30}/>
           <View style={{marginLeft: 20}}>
             <Text color="light">Finalizar Agendamento</Text>

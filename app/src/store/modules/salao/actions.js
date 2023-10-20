@@ -36,6 +36,10 @@ export function updateColaboradores(colaboradores) {
   return{type: types.UPDATE_COLABORADORES, colaboradores}
 }
 
+export function resetAgendamento() {
+  return {type: types.RESET_AGENDAMENTO};
+}
+
 export function saveAgendamento() {
   return{type: types.SAVE_AGENDAMENTO}
 }

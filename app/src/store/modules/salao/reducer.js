@@ -62,6 +62,12 @@ function salao(state = INITIAL_STATE, action) {
         ])
       })
     }
+    case types.RESET_AGENDAMENTO: {
+      return produce(state, (draft) => {
+        draft.agenda = INITIAL_STATE.agenda;
+        draft.colaboradores = INITIAL_STATE.colaboradores;
+      });
+    }
     default:
       return state;
   }

@@ -1,12 +1,7 @@
 import React from "react";
-
-import { Box, Text, Cover, Button } from "../../../styles";
-import theme from "../../../styles/theme.json";
-
 import { useDispatch } from "react-redux";
 
-import { updateForm } from "../../../store/modules/salao/actions";
-import { modalRef as ModalLoginRef } from "./modal";
+import { Box, Text, Cover } from "../../../styles";
 
 const EspecialistaPicker = ({colaboradores, agendamento}) => {
 
@@ -22,7 +17,7 @@ const EspecialistaPicker = ({colaboradores, agendamento}) => {
         color="dark"
         removePaddingBottom
       >
-        Gostaria de trocar o(a) especialista?
+        Especialista:
       </Text>
       <Box 
        row
@@ -40,14 +35,6 @@ const EspecialistaPicker = ({colaboradores, agendamento}) => {
         <Text>{colaborador?.nome}</Text>
         </Box>
         <Box align="center">
-          <Button
-            uppercase={false}
-            textColor="light"
-            background={theme.colors.muted}
-            mode="contained"
-            block
-            onPress={() => ModalLoginRef.current?.open()}
-          >Trocar Especialista</Button>
         </Box>
       </Box>
     </>

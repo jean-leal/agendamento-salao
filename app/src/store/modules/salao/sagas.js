@@ -84,7 +84,6 @@ export function* saveAgendamento(){
   }
 }
 
-
 export default all([
   takeLatest(types.GET_SALAO, getSalao),
   takeLatest(types.ALL_SERVICOS, allServicos),

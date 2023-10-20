@@ -14,6 +14,7 @@ import {
 } from "react-native-paper";
 
 import { TouchableOpacity }from "react-native-gesture-handler";
+import { ScrollView as ScrollViewComponent } from 'react-native-gesture-handler';
 
 export const Box = styled.View`
 flex: 1;
@@ -58,6 +59,12 @@ export const Title = styled(TitlePaper)`
   line-height: ${(props) => props.small ? '22px' : '30px'};
   text-align: ${(props) => props.align || 'left'};
   font-family: 'Ubuntu_700Bold';
+`;
+
+export const ScrollView = styled(ScrollViewComponent)`
+  width: 100%;
+  background: ${(props) =>
+    props.theme[props.background] || props.background || 'black'};
 `;
 
 export const Spacer = styled.View`

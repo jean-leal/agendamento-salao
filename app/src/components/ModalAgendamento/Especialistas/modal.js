@@ -41,7 +41,7 @@ const EspecialistasModal = ( {
       <Modalize ref={modalRef} adjustToContentHeight>
         <ScrollView >
             <Box hasPadding>
-              <Text bold color="dark">{servico?.titulo + ' '}</Text>
+              <Title bold color="dark">{servico?.titulo + ' '}</Title>
               <Text small>Disponiveis em {moment(agendamento?.data).format('DD/MM/YYYY [às] HH:mm')}</Text>
               <Box wrap="wrap" spacing="10px 0 0 0" direction="row">
                 {colaboradoresDisponiveis.map((colaborador) => (
@@ -54,8 +54,7 @@ const EspecialistasModal = ( {
                       direction="column"
                       align="center"
                       onPress={()=>{
-                        dispatch(updateAgendamento({colaboradorId: colaborador._id}))
-                        dispatch(updateForm({modalEspecialista: false}))
+                      alert("ola mundo")  
                       }}
                     >
                       <Cover 
@@ -81,7 +80,12 @@ const EspecialistasModal = ( {
 }
 
 export default EspecialistasModal;
-/*import React from "react";
+/*
+dispatch(updateAgendamento({colaboradorId: colaborador._id}))
+                        dispatch(updateForm({modalEspecialista: false}))
+
+
+import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import Modal from "react-native-simple-modal";
 import { Dimensions } from "react-native";

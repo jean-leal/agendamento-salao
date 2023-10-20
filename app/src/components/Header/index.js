@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, GradientView, Cover, Title, Text, Badge, Touchable, Button, TextInput} from '../../styles';
+import { Box, GradientView, Cover, Title, Text, Badge, Touchable, TextInput} from '../../styles';
 
 import {colors} from '../../styles/theme.json';
 import { Linking, Share } from 'react-native';
@@ -29,9 +29,9 @@ const Header = () => {
           <Text color='light' >{salao?.endereco?.cidade}</Text>
         </GradientView>
       </Cover> 
-      <Box background='light' align= 'center' row >
+      <Box background='light' align= 'center' row hasPadding  >
         <Box  row justify= 'space-between'>
-          <Box>
+          <Box align= 'center'>
             <Touchable 
               direction='column' 
               align='center'
@@ -40,7 +40,7 @@ const Header = () => {
               <Text small spacing='10px 0 0 ' color='muted' >Ligar</Text>
             </Touchable>
           </Box>
-          <Box>
+          <Box align= 'center'>
             <Touchable 
               direction='column'
               align='center' 
@@ -49,7 +49,7 @@ const Header = () => {
               <Text small spacing='10px 0 0 ' color='muted' >Visitar</Text>
             </Touchable>
           </Box>
-          <Box>
+          <Box align= 'center'>
             <Touchable 
               direction='column' 
               align='center'
@@ -63,18 +63,7 @@ const Header = () => {
             </Touchable>
           </Box>         
         </Box>
-        <Box hasPadding direction='column' align='center' justify='center'>
-          <Button 
-            icon='clock-check-outline'
-            background='success'           
-            mode='contained'
-            uppercase={false}
-            textColor='light'
-          >Agendar Agora</Button>
-          <Text small spacing='10px 0 0' color='muted'>
-            Horários disponíveis
-          </Text>
-        </Box>
+       
       </Box>
       <Box hasPadding direction='column' background='light' spacing='10px 0 0'>
         <Title small> Serviços ({servicos.length})</Title>

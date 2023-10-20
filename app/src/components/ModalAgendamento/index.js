@@ -1,7 +1,9 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useCallback } from "react";
 import { StyleSheet, ScrollView, Dimensions } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import moment from "moment";
+import { ActivityIndicator } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 
 import Resume from "./resume";
 import DateTimePicker from "./dateTime"
@@ -11,11 +13,9 @@ import EspecialistasModal from "./Especialistas/modal";
 import PaymentPicker from "./payment"
 import { Box, Button, Title, Text } from "../../styles";
 import util from "../../util";
-import theme from "../../styles/theme.json"
+import theme from "../../styles/theme.json";
 
-import { ActivityIndicator } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { saveAgendamento } from "../../store/modules/salao/actions";
+import { saveAgendamento, resetAgendamento, updateForm } from "../../store/modules/salao/actions";
 
 const ModalAgendamento = () => {
 
@@ -32,15 +32,17 @@ const ModalAgendamento = () => {
 
   const servico = servicos.filter(s => s._id === agendamento.servicoId)[0]
   
-  
+  const handleSheetChanges = useCallback((index: Number) => {
+    if (index !== 2) dispatch( updateForm({modalAgendamento: 0}))
+    
+  }, []);
+
   return (      
     <BottomSheet
       index={form.modalAgendamento}        
       ref={sheetRef}
       snapPoints={snapPoints}
-      renderContent={()=>{
-        
-      }}
+      onChange={handleSheetChanges}
     > 
       <>
       <ScrollView 

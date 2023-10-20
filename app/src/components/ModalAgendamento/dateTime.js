@@ -1,12 +1,10 @@
 import React from "react";
 import moment from "moment/min/moment-with-locales";
 import { FlatList } from 'react-native-gesture-handler';
-
 import { useDispatch } from "react-redux";
 
 import { updateAgendamento } from "../../store/modules/salao/actions";
-
-import { Text, Title, Touchable, Spacer, Box } from "../../styles";
+import { Text, Title, Touchable, Box } from "../../styles";
 import theme from "../../styles/theme.json";
 import util from "../../util";
 
