@@ -115,8 +115,16 @@ font-family: ${(props) => (props.bold ? 'Ubuntu_700Bold' : 'Ubuntu_300Light')}
 `;
 
 export const Button = styled(ButtonPaper).attrs((props) =>({
+  mode: props.mode || 'contained',
+  width: props.block ? '100%' : 'auto',
+  uppercase: false,
   buttonColor: props.theme[props.background] || props.background || 'danger',
-  textColor: props.theme[props.textColor] || "black"
+  textColor: props.theme[props.textColor] || "black",
+  labelStyle: {
+   letterSpacing:0,
+   fontFamily: 'Ubuntu_300Light', 
+   fontWeight: "normal"
+  }
 }))``
 
 export const TextInput = styled(TextInputPaper).attrs((props) => ({

@@ -1,13 +1,10 @@
 import React from 'react';
 import { registerRootComponent } from 'expo';
-
-
 import {ThemeProvider} from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper';
 import {Provider as StoreProvider} from 'react-redux';
 
-
-import {colors} from './src/styles/theme.json'
+import {colors} from './src/styles/theme.json';
 
 import {
   useFonts,
@@ -23,6 +20,7 @@ import {
 
 import Home from './src/pages/Home';
 import store from './src/store';
+import Login from './src/pages/Login';
 
 const App = () => {
 
@@ -46,7 +44,7 @@ const App = () => {
     <StoreProvider store={store}>
       <ThemeProvider theme={colors}>
         <PaperProvider>
-          <Home/>
+          <Login/>
         </PaperProvider>
       </ThemeProvider>
     </StoreProvider>
