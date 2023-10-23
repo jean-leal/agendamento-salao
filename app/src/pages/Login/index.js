@@ -1,11 +1,20 @@
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Box, Text, Cover, Button, Spacer } from "../../styles";
+import { View } from "react-native";
 import logoApp from "../../assets/nv-logo.jpg";
+import ModalLogin, {modalRef as modalLoginRef} from "../../components/Modal/login"
 
 const Login = () => {
+    const openModalLogin = () => {
+        modalLoginRef.current.open()
+    }
     return(
-        <Box background= "dark" haspadding align="center" justify="center">
+        <>                
+        <GestureHandlerRootView >
+            <View  height="100%" background= "dark">
+            <Box hasPadding background= "dark" justify="center" align="center">
             <Cover
                 source={logoApp}
                 borderRadius="circle"
@@ -14,7 +23,7 @@ const Login = () => {
                 circle
             />
             <Spacer size="100px"/>
-            <Button block background="light" >Entrar na minha conta</Button>
+            <Button block background="light" onPress={() => openModalLogin() } >Entrar na minha conta</Button>
             <Spacer/>
             <Button block mode="text" textColor="light">Fazer o meu cadastro</Button>
             
@@ -24,8 +33,16 @@ const Login = () => {
                  e
                 <Text underline color="primary" small> Política de Privacidade.</Text>
             </Text>
-        </Box>
-    
+            </Box>
+            
+            
+            <ModalLogin />
+           
+            </View>
+           
+        </GestureHandlerRootView>     
+        </>
+        
     )
 }
 

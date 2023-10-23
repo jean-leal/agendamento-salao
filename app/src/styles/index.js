@@ -2,9 +2,6 @@ import styled from "styled-components/native";
 
 import {LinearGradient} from "expo-linear-gradient";
 
-import util from "../util";
-
-
 import { 
   Title as TitlePaper, 
   Badge as BadgePaper, 
@@ -15,6 +12,8 @@ import {
 
 import { TouchableOpacity }from "react-native-gesture-handler";
 import { ScrollView as ScrollViewComponent } from 'react-native-gesture-handler';
+
+import util from "../util";
 
 export const Box = styled.View`
 flex: 1;
@@ -129,10 +128,15 @@ export const Button = styled(ButtonPaper).attrs((props) =>({
 
 export const TextInput = styled(TextInputPaper).attrs((props) => ({
   mode: 'outlined',
+  outlineColor: props.theme.muted,
+  underlineColor: props.theme.muted,
+  selectionColor: props.theme.muted,
   theme: {
     colors: {
       placeholder:  util.toAlpha(props.theme.muted, 30),
-      background: props.theme.light
+      background: props.theme.dark,
+      primary: props.theme.light,
+      text: props.theme.light,
     },
   },
 }))`
