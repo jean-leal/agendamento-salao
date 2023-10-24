@@ -2,6 +2,7 @@ import React, {createRef} from "react";
 
 import {Modalize} from 'react-native-modalize';
 import { Box, Title, Spacer, TextInput, Button } from "../../styles";
+import TextInputMask from "../textInputMask";
 
 export const modalRef = createRef()
 
@@ -12,17 +13,29 @@ const ModalRegister = () => {
                 <Box hasPadding background="dark" align="center" >
                     <Title color="light">Informe seus dados</Title>
                     <Spacer/>
-                    <TextInput label={"Nome"} placeholder="Digite seu nome"></TextInput>
+                    <TextInput label={"Nome"} placeholder="Digite seu nome"/>
                     <Spacer/>
-                    <TextInput label={"E-mail"} placeholder="Digite seu e-mail" ></TextInput>
+                    <TextInput label={"E-mail"} placeholder="Digite seu e-mail"/>
                     <Spacer/>
-                    <TextInput label={"CPF"} placeholder="Digite seu CPF" ></TextInput>
+                    <TextInputMask 
+                        type={'cpf'}
+                        label={"CPF"}
+                        placeholder="Digite seu CPF" 
+                    />
                     <Spacer/>
-                    <TextInput label={"Telefone"} placeholder="Digite seu telefone" ></TextInput>
+                    <TextInputMask 
+                        type={'cel-phone'}
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99) '}}
+                        label={"Telefone"}
+                        placeholder="Digite seu telefone"
+                    />
                     <Spacer/>
-                    <TextInput label={"Senha"} placeholder="Digite sua senha" ></TextInput>
+                    <TextInput label={"Senha"} placeholder="Digite sua senha"/>
                     <Spacer/>
-                    <TextInput label={"Coirme sua senha"} placeholder="Confirme sua senha" secureTextEntry></TextInput>
+                    <TextInput label={"Coirme sua senha"} placeholder="Confirme sua senha" secureTextEntry />
                     <Spacer/>
                     <Button width="100%" background="success"> Enviar dados</Button>                   
                 </Box>       
