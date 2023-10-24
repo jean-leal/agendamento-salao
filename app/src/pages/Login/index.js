@@ -5,11 +5,9 @@ import { Box, Text, Cover, Button, Spacer } from "../../styles";
 import { View } from "react-native";
 import logoApp from "../../assets/nv-logo.jpg";
 import ModalLogin, {modalRef as modalLoginRef} from "../../components/Modal/login"
+import ModalRegister, {modalRef as modalRegisterRef} from "../../components/Modal/register";
 
 const Login = () => {
-    const openModalLogin = () => {
-        modalLoginRef.current.open()
-    }
     return(
         <>                
         <GestureHandlerRootView >
@@ -23,9 +21,9 @@ const Login = () => {
                 circle
             />
             <Spacer size="100px"/>
-            <Button block background="light" onPress={() => openModalLogin() } >Entrar na minha conta</Button>
+            <Button block background="light" onPress={() => modalLoginRef?.current.open() } >Entrar na minha conta</Button>
             <Spacer/>
-            <Button block mode="text" textColor="light">Fazer o meu cadastro</Button>
+            <Button block mode="text" textColor="light" onPress={() => modalRegisterRef?.current.open() }>Fazer o meu cadastro</Button>
             
             <Text small hasPadding align="center" color="muted">
                 Ao fazer login você concorda com nossos{' '}
@@ -37,6 +35,7 @@ const Login = () => {
             
             
             <ModalLogin />
+            <ModalRegister/>
            
             </View>
            
