@@ -35,7 +35,7 @@ const ModalRegister = () => {
                     <Spacer/>
                     <TextInput label={"Senha"} placeholder="Digite sua senha"/>
                     <Spacer/>
-                    <TextInput label={"Coirme sua senha"} placeholder="Confirme sua senha" secureTextEntry />
+                    <TextInput label={"Confirme sua senha"} placeholder="Confirme sua senha" secureTextEntry />
                     <Spacer/>
                     <Button width="100%" background="success"> Enviar dados</Button>                   
                 </Box>       

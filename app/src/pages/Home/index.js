@@ -1,40 +1,60 @@
-import React, { useEffect } from 'react';
-import { FlatList } from 'react-native';
+import React from "react";
+import {
+  Box,
+  GradientView,
+  ScrollView,
+  Cover,
+  Text,
+  Title,
+  Touchable,
+} from "../../styles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import {useDispatch, useSelector} from 'react-redux';
 
-import { allServicos, getSalao } from '../../store/modules/salao/actions';
-import Header from '../../components/Header';
-import Servico from '../../components/Servico';
-import ModalAgendamento from "../../components/ModalAgendamento"
+import { colors } from "../../styles/theme.json";
 
 const Home = () => {
-  const { servicos, form } = useSelector(state => state.salao)
-  const dispatch = useDispatch();
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ScrollView background="dark">
+        <GradientView
+          end={{ x: 0, y: 1 }}
+          style={{ height: "100%" }}
+          colors={[colors.primary, colors.dark]}
+          hasPadding
+        >
+          <Box
+            hasPadding
+            row
+            align="center"
+            justify="center"
+            spacing="20px 0 0 "
+          >
+            <Cover
+              image="https://avatars.githubusercontent.com/u/87539218?v=4"
+              width="100px"
+              height="100px"
+              circle
+            />
 
-  const finalServicos =  form.inputFiltro.length > 0 ? servicos.filter((s)=> {
-    const titulo = s.titulo.toLowerCase().trim();
-    const arrSearch = form.inputFiltro. toLowerCase().trim().split(' ');
-    return arrSearch.every((w) => titulo.search(w) !== - 1)
-    }): servicos
-
-  useEffect(() =>{
-    dispatch(getSalao());
-    dispatch(allServicos());
-  }, [])
-
- return (
-  <GestureHandlerRootView>
-    <FlatList
-    ListHeaderComponent={Header} 
-    data={finalServicos}
-    renderItem={(servico)=> (<Servico servico={servico} key={servico}/>)}
-    keyExtractor={(servico) => servico}
-  >
-  </FlatList>  
-  <ModalAgendamento/>
-  </GestureHandlerRootView>  
- )
-}
+            <Box align="center" justify="center">
+              <Title color="light">Jean Cliente</Title>
+              <Text color="light">jeanlds13@gmail.com</Text>
+            </Box>
+          </Box>
+            <Touchable
+              rounded="5px"
+              spacing="10px 0 0 "
+              hasPadding
+              background="success"   
+              justify="center"           
+            >
+              <Text color="dark">Novo agendamento</Text>
+            </Touchable>
+          
+        </GradientView>
+      </ScrollView>
+    </GestureHandlerRootView>
+  );
+};
 
 export default Home;

@@ -1,10 +1,11 @@
 import React from 'react';
+import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
 import {ThemeProvider} from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper';
 import {Provider as StoreProvider} from 'react-redux';
 
-import colors from './src/styles/theme.json';
+import {colors} from './src/styles/theme.json';
 
 import {
   useFonts,
@@ -21,6 +22,8 @@ import {
 import Home from './src/pages/Home';
 import store from './src/store';
 import Login from './src/pages/Login';
+import Agendamento from './src/pages/Agendamento';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
 
@@ -43,8 +46,8 @@ const App = () => {
   return (
     <StoreProvider store={store}>
       <ThemeProvider theme={colors}>
-        <PaperProvider>
-          <Login/>
+        <PaperProvider>        
+          <Home/>         
         </PaperProvider>
       </ThemeProvider>
     </StoreProvider>
