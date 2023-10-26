@@ -19,11 +19,9 @@ import {
   Ubuntu_700Bold_Italic,
 } from '@expo-google-fonts/ubuntu';
 
-import Home from './src/pages/Home';
 import store from './src/store';
-import Login from './src/pages/Login';
-import Agendamento from './src/pages/Agendamento';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import Routes from './src/routes';
 
 const App = () => {
 
@@ -47,7 +45,7 @@ const App = () => {
     <StoreProvider store={store}>
       <ThemeProvider theme={colors}>
         <PaperProvider>        
-          <Home/>         
+          <Routes/>         
         </PaperProvider>
       </ThemeProvider>
     </StoreProvider>
