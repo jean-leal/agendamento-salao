@@ -1,6 +1,7 @@
 import React, { createRef } from "react";
-
 import { Modalize } from "react-native-modalize";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   Box,
   Title,
@@ -10,13 +11,10 @@ import {
   ScrollView,
 } from "../../styles";
 import TextInputMask from "../textInputMask";
-
-import { useDispatch, useSelector } from "react-redux";
+import { setUser as setUserAction, saveUser as saveUserAction } from "../../store/modules/app/actions";
+import Uploader from "../Uploader";
 
 export const modalRef = createRef();
-
-import { setUser as setUserAction } from "../../store/modules/app/actions";
-import Uploader from "../Uploader";
 
 const ModalRegister = () => {
   const dispatch = useDispatch();
@@ -25,6 +23,14 @@ const ModalRegister = () => {
   const setUser = (payload) => {
     dispatch(setUserAction(payload));
   };
+
+  const requestRegister = async () => {
+    try {
+      dispatch(saveUserAction())
+    } catch (err) {
+
+    }
+  }
 
   return (
     <>

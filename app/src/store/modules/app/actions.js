@@ -15,3 +15,7 @@ export function setUser(payload){
 export function reset(key){
   return { type: types.RESET, key }
 }
+
+export function saveUser(){
+  return { type: types.SET_USER }
+}

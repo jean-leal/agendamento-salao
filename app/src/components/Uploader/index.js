@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { Cover, Box, Title, Text, Spacer, Button } from "../../styles/index";
 
 import util from "../../util";
 import { colors } from "../../styles/theme.json";
-import Ionicons from "@expo/vector-icons/Ionicons";
+
 
 const Uploader = ({ callback = () => {}, image = null }) => {
   const requestAccess = async () => {
@@ -48,16 +49,22 @@ const Uploader = ({ callback = () => {}, image = null }) => {
 
   return (
     <>
-      {image &&( 
-      <Cover
-        width={"100%"}
-        height={"230px"}
-        circle={0}
-        image={image}>
-        <Button background="light" onPress={() => pickImage()}>
+      {image && (
+        <>
+          <Cover
+            width={"100%"}
+            height={"230px"}
+            circle={0}
+            image={image}
+            justify="flex-end"
+            align="center"
+          ></Cover>
+          <Spacer/>
+          <Button background="light" onPress={() => pickImage()}>
             Trocar imagem
           </Button>
-      </Cover>)}
+        </>
+      )}
       {!image && (
         <Box
           hasPadding
