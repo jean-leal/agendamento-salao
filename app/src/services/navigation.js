@@ -7,7 +7,7 @@ export function navigate(name, params) {
 
 export function replace(name, params) {
   navigationRef.current?.reset({
-    index:0, 
-    routes: [{ name, params}],
-  })
+    index: 0,
+    routes: [{ name, params }],
+  });
 }

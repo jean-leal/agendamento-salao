@@ -8,6 +8,7 @@ import {
   Text as TextPaper,
   Button as ButtonPaper, 
   TextInput as TextInputPaper,
+  ActivityIndicator as ActivityIndicatorPaper,
 } from "react-native-paper";
 
 import { TouchableOpacity }from "react-native-gesture-handler";
@@ -145,3 +146,11 @@ export const TextInput = styled(TextInputPaper).attrs((props) => ({
   font-size: 15px;
  
 `;
+
+
+export const ActivityIndicator = styled(ActivityIndicatorPaper).attrs(
+  (props) => ({
+    animating: true,
+    color: props.theme[props.color],
+  })
+)``;
