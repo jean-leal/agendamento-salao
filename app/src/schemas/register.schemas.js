@@ -3,12 +3,12 @@ import { validate } from "gerador-validador-cpf";
 
 const RegisterSchema = yup.object().shape({
   nome: yup
-    .string()
+    .string("Deve ser uma string")
     .min(5, "O nome deve conter no minimo 5 caracteres")
     .required("Nome é obrigatório"),
   telefone: yup
     .string()
-    .length(14, "Digite um telefone válido")
+    .min(12, "Digite um telefone válido")
     .required("Telefone é obrigatório"),
   email: yup
     .string()
@@ -23,16 +23,20 @@ const RegisterSchema = yup.object().shape({
       test: (cpf) => validate(cpf),
     })
     .required("O CPF é obrigatório"),
-  dataNascimento: yup.string().length(10, "Digite uma data válida").required(),
-  endereco: {
-    logradouro: String,
-    cidade: String,
-    uf: String,
-    cep: String,
-    numero: String,
-  },
-  senha: "",
-  confirmaSenha: "",
+  dataNascimento: yup.string().length(10, "Digite uma data válida").required("Data de Nascimento é obrigatório"),
+  cep: yup.string().required("CEP é obrigatório"),
+  rua: yup.string().required("Rua é obrigatório"),
+  numero: yup.string().required("Número é obrigatório"),
+  uf: yup.string().required("UF é obrigatório"),
+  cidade: yup.string().required("Cidade é obrigatório"),
+  senha: yup
+    .string()
+    .min(5, "A senha deve conter no minimo 5 caracteres")
+    .required("A senha é obrigatório"),
+  confirmaSenha: yup
+    .string()
+    .oneOf([yup.ref("senha")], "As senhas devem ser iguais")
+    .required("A senha é obrigatório"),
 });
 
 export default RegisterSchema;

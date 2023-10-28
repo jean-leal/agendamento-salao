@@ -16,7 +16,7 @@ const cliente = new Schema({
   },
   senha: {
     type: String,
-    //required: [true, 'Senha é obrigatório.'],
+    required: [true, 'Senha é obrigatório.'],
   },
   foto: String,  
   cpf: {
@@ -32,13 +32,11 @@ const cliente = new Schema({
   dataNascimento: {
     type: Date
   },
-  endereco: {    
-    logradouro: String,
-    cidade: String,
-    uf: String,
-    cep: String,
-    numero: String,
-  },
+  rua: String,
+  cidade: String,
+  uf: String,
+  cep: String,
+  numero: String,
   dataCadastro: {
     type: Date, 
     default: Date.now,

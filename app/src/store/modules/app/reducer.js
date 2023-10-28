@@ -21,6 +21,10 @@ function app (state = INITIAL_STATE, action) {
       return produce(state, (draft) => {
         draft.userForm = {...state.userForm, ...action.payload }
     })}
+    case types.SET_FORM: {
+      return produce(state, (draft) => {
+        draft.form = {...state.form, ...action.payload }
+    })}
     case types.RESET: {
       return produce(state, (draft) => {
         draft[action.key] = INITIAL_STATE[action.key]

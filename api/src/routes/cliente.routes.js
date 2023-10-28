@@ -5,20 +5,21 @@ const SalaoCliente = require('../models/relationship/salaoCliente');
 
 router.post('/', async (req, res) =>{
   try{
-    const {cliente, salaoId} = req.body;
+    const { form } = req.body;
+    console.log(req.body)
     let newCliente = null;
 
     //verificando se o cliente existe
     const existentCliente = await Cliente.findOne({
       $or: [
-        {email: cliente.email},
-        {telefone: cliente.telefone}
+        {email: form.email},
+        {telefone: form.telefone}
       ]
     })
     
     if (!existentCliente){
       // criando cliente
-      newCliente = await new Cliente(cliente).save();
+      newCliente = await new Cliente(form).save();
     }
 
     //relacionamento entre cliente e salão
@@ -28,7 +29,7 @@ router.post('/', async (req, res) =>{
      
     //verifica se ja existe o relacionamento 
     const existentRelationship = await SalaoCliente.findOne({
-      salaoId,
+      
       clienteId,
       status: {$ne: 'E'},
     });
@@ -36,15 +37,13 @@ router.post('/', async (req, res) =>{
     // se não esta vinculado 
     if(!existentRelationship) {
       await new SalaoCliente({
-        salaoId, 
+         
         clienteId,   
       }).save();
     }
     // caso já exista o vinculo do cliente e salao 
     if (existentCliente){
-      await SalaoCliente.findOneAndUpdate({
-        salaoId,
-        clienteId,
+      await SalaoCliente.findOneAndUpdate({ clienteId
       }, {status: 'A'});
     }
 
@@ -104,3 +103,59 @@ router.delete('/vinculo/:id', async (req, res) =>{
 
 
 module.exports = router;
+
+
+/* router.post('/', async (req, res) =>{
+  try{
+    const {cliente, salaoId} = req.body;
+    let newCliente = null;
+
+    //verificando se o cliente existe
+    const existentCliente = await Cliente.findOne({
+      $or: [
+        {email: cliente.email},
+        {telefone: cliente.telefone}
+      ]
+    })
+    
+    if (!existentCliente){
+      // criando cliente
+      newCliente = await new Cliente(cliente).save();
+    }
+
+    //relacionamento entre cliente e salão
+    let clienteId = existentCliente
+     ? existentCliente._id
+     : newCliente._id;      
+     
+    //verifica se ja existe o relacionamento 
+    const existentRelationship = await SalaoCliente.findOne({
+      salaoId,
+      clienteId,
+      status: {$ne: 'E'},
+    });
+  
+    // se não esta vinculado 
+    if(!existentRelationship) {
+      await new SalaoCliente({
+        salaoId, 
+        clienteId,   
+      }).save();
+    }
+    // caso já exista o vinculo do cliente e salao 
+    if (existentCliente){
+      await SalaoCliente.findOneAndUpdate({
+        salaoId,
+        clienteId,
+      }, {status: 'A'});
+    }
+
+    if(existentRelationship && existentCliente ){
+      res.json({ error: true, message: 'Cliente já cadastrado.'})
+    } else {
+      res.json({error:false})
+    }
+  } catch (err){
+    res.json({ error: true, error: err.message})
+  }
+}); */

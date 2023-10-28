@@ -1,6 +1,7 @@
 import React, { createRef } from "react";
 import { Modalize } from "react-native-modalize";
 import { useDispatch, useSelector } from "react-redux";
+import { Alert } from "react-native";
 
 import {
   Box,
@@ -11,8 +12,12 @@ import {
   ScrollView,
 } from "../../styles";
 import TextInputMask from "../textInputMask";
-import { setUser as setUserAction, saveUser as saveUserAction } from "../../store/modules/app/actions";
+import {
+  setUser as setUserAction,
+  saveUser as saveUserAction,
+} from "../../store/modules/app/actions";
 import Uploader from "../Uploader";
+import RegisterSchema from "../../schemas/register.schemas";
 
 export const modalRef = createRef();
 
@@ -26,11 +31,13 @@ const ModalRegister = () => {
 
   const requestRegister = async () => {
     try {
-      dispatch(saveUserAction())
-    } catch (err) {
-
+      
+      await RegisterSchema.validate(userForm);
+      dispatch(saveUserAction());
+    } catch ({errors}) {
+      Alert.alert(errors[0], "Corrija o erro antes de continuar.");
     }
-  }
+  };
 
   return (
     <>
@@ -38,7 +45,10 @@ const ModalRegister = () => {
         <ScrollView style={{ padding: 20 }} background="dark" align="center">
           <Title color="light">Informe seus dados</Title>
           <Spacer />
-          <Uploader image={userForm.foto} callback={(photo) => setUser({foto: photo?.[0].uri})}/>
+          <Uploader
+            image={userForm.foto}
+            callback={(photo) => setUser({ foto: photo?.[0].uri })}
+          />
           <Spacer />
           <TextInput
             label={"E-mail"}
@@ -54,9 +64,19 @@ const ModalRegister = () => {
             label={"Nome"}
             placeholder="Digite seu nome"
             disabled={form?.saving}
-            value={userForm?.name}
-            onChangeText={(name) => {
-              setUser({ name });
+            value={userForm?.nome}
+            onChangeText={(nome) => {
+              setUser({ nome });
+            }}
+          />
+          <Spacer />
+          <TextInputMask
+            type={"cpf"}
+            label={"CPF"}
+            placeholder={"Digite seu CPF"}
+            value={userForm?.cpf}
+            onChangeText={(cpf) => {
+              setUser({ cpf });
             }}
           />
           <Spacer />
@@ -163,8 +183,13 @@ const ModalRegister = () => {
             }}
           />
           <Spacer />
-          <Button width="100%" background="success">
-            {" "}
+          <Button
+            width="100%"
+            background="success"
+            disabled={form?.saving}
+            loading={form?.saving}
+            onPress={() => requestRegister()}
+          >
             Enviar dados
           </Button>
         </ScrollView>
