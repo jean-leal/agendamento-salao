@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1298.0",
+    "aws-sdk": "^2.1483.0",
+    "bcrypt": "^5.1.1",
+    "busboy": "^1.6.0",
     "busboy-body-parser": "^0.3.2",
     "connect-busboy": "^1.0.0",
     "cors": "^2.8.5",

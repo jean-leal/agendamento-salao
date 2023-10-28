@@ -40,8 +40,8 @@ export function* saveUser() {
       type: `image/${extension}`,
       uri: userForm?.foto,
     });
-    console.log(form);
-    const { data: res } = yield call(api.post, '/cliente', form, {
+    
+    const { data: res } = yield call(api.post, '/user', form, {
       'Content-Type': 'multpart/form-data'
     })
   
@@ -64,3 +64,4 @@ export default all([
   takeLatest(types.LOGIN_USER, loginUser),
   takeLatest(types.SAVE_USER, saveUser),
 ]);
+
