@@ -22,7 +22,7 @@ export function* saveUser() {
     form.append("cpf", userForm?.cpf.match(/\d+/g).join(""));
     form.append(
       "dataNascimento",
-      moment(userForm?.dataNascimento, "DD/MM/YYYY").format("YYYY/DD/MM")
+      moment(userForm?.dataNascimento, "DD/MM/YYYY").format("YYYY/MM/DD")
     );
     form.append("telefone", userForm?.telefone.match(/\d+/g).join(""));
     form.append("senha", userForm?.senha);
@@ -31,19 +31,17 @@ export function* saveUser() {
     form.append("numero", userForm?.numero);
     form.append("cidade", userForm?.cidade);
 
-    const nameParts = userForm?.foto.split(".");
+    const nameParts = userForm?.foto.split('.');
     const extension = nameParts.pop();
     const name = new Date().getTime() + nameParts.pop();
 
-    form.append("foto", {
-      name,
+    form.append("foto",{
+      name: name,
       type: `image/${extension}`,
       uri: userForm?.foto,
     });
-    
-    const { data: res } = yield call(api.post, '/user', form, {
-      'Content-Type': 'multpart/form-data'
-    })
+    console.tron.log(form)
+    const { data: res } = yield call(api.post, '/user', form )
   
     if (res.error) {
       throw new Error(res.message)

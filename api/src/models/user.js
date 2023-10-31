@@ -30,7 +30,7 @@ const user = new Schema({
     default: 'A'
   },
   dataNascimento: {
-    type: Date
+    type: String
   },
   rua: String,
   cidade: String,

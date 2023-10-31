@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const busboy = require('connect-busboy');
-const busboyBodyParser = require('busboy-body-parser')
+const busboyBodyParser = require('busboy-body-parser');
 
 require('./database');
 

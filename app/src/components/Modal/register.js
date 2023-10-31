@@ -75,6 +75,7 @@ const ModalRegister = () => {
             label={"CPF"}
             placeholder={"Digite seu CPF"}
             value={userForm?.cpf}
+            disabled={form?.saving}
             onChangeText={(cpf) => {
               setUser({ cpf });
             }}

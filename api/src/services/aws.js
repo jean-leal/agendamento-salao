@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 module.exports = {
   IAM_USER_KEY: 'AKIAYXOQRQK6SGVTBID6',
   IAM_USER_SECRET: '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',
-  BUCKET_NAME: 'app-salao',
+  BUCKET_NAME: 'app-salao-img',
   AWS_REGION: 'sa-east-1',
   uploadToS3: function (file, filename, acl = 'public-read') {
     return new Promise((resolve, reject) => {
@@ -27,8 +27,7 @@ module.exports = {
 
         s3bucket.upload(params, function (err, data) {
           if (err) {
-            console.log(err);
-            return resolve({ error: true, message: err });
+            return resolve({ error: true, message: err.message });
           }
           console.log(data);
           return resolve({ error: false, message: data });
