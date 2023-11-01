@@ -17,7 +17,7 @@ import {
   saveUser as saveUserAction,
 } from "../../store/modules/app/actions";
 import Uploader from "../Uploader";
-import RegisterSchema from "../../schemas/register.schemas";
+import RegisterScheme from "../../schemas/register.scheme";
 
 export const modalRef = createRef();
 
@@ -32,7 +32,7 @@ const ModalRegister = () => {
   const requestRegister = async () => {
     try {
       
-      await RegisterSchema.validate(userForm);
+      await RegisterScheme.validate(userForm);
       dispatch(saveUserAction());
     } catch ({errors}) {
       Alert.alert(errors[0], "Corrija o erro antes de continuar.");

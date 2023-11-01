@@ -51,8 +51,7 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const {email, senha} = re.body;
-
+    const {email, senha} = req.body;
     const user = await User.findOne({email, status: 'A'});
 
     if (!user){
@@ -69,7 +68,7 @@ router.post("/login", async (req, res) => {
     })
     
   } catch (err) {
-    res.json({message: err.message});
+    res.json({ error: true, message: err.message});
   }
 })
 module.exports = router;
