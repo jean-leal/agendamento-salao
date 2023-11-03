@@ -14,7 +14,7 @@ const RegisterSchema = yup.object().shape({
     .string()
     .email("Digite um e-mail valido")
     .required("Email é obrigatório"),
-  foto: yup.string().required("Foto é obrigatório"),
+  foto: yup.object().required("Foto é obrigatório"),
   cpf: yup
     .string()
     .test({

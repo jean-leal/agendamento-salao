@@ -10,9 +10,14 @@ import {
 } from "../../styles";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import { colors } from "../../styles/theme.json";
+import util from "../../util";
 
 const Home = () => {
+
+  const { user } = useSelector(state => state.app)
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView background="dark">
@@ -30,15 +35,15 @@ const Home = () => {
             spacing="20px 0 0 "
           >
             <Cover
-              image="https://avatars.githubusercontent.com/u/87539218?v=4"
+              image ={`${util.AWS.bucketURL}/${user.foto}`}
               width="100px"
               height="100px"
               circle
             />
 
             <Box align="center" justify="center">
-              <Title color="light">Jean Cliente</Title>
-              <Text color="light">jeanlds13@gmail.com</Text>
+              <Title color="light">{user.nome}</Title>
+              <Text color="light">{user.email}</Text>
             </Box>
           </Box>
             <Touchable

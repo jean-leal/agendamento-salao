@@ -4,7 +4,7 @@ export function loginUser() {
   return { type: types.LOGIN_USER };
 }
 
-export function setReducer(payload, key){
+export function setReducer(key, payload){
   return { type: types.SET_REDUCER, key, payload }
 }
 

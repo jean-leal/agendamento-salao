@@ -9,6 +9,7 @@ import api from "../../../services/api";
 import { modalRef as modalRegisterRef } from "../../../components/Modal/register";
 import { modalRef as modalLoginRef } from "../../../components/Modal/login";
 import { replace } from "../../../services/navigation";
+import util from "../../../util";
 
 export function* loginUser() {
   const { userForm } = yield select((state) => state.app);
@@ -55,16 +56,16 @@ export function* saveUser() {
     form.append("numero", userForm?.numero);
     form.append("cidade", userForm?.cidade);
 
-    const nameParts = userForm?.foto.split(".");
-    const extension = nameParts.pop();
-    const name = new Date().getTime() + nameParts.pop();
-
+    //const nameParts = userForm?.foto.split(".");
+    //const extension = nameParts.pop();
+    //const name = new Date().getTime() + nameParts.pop();
+console.tron.log(userForm)
     form.append("foto", {
-      name: name,
-      type: `image/${extension}`,
-      uri: userForm?.foto,
+      name: new Date().getTime() + '.' + util.getMimeType(userForm?.foto?.uri),
+      type: `image/${util.getMimeType(userForm?.foto?.uri)}`,
+      uri: userForm?.foto?.uri,
     });
-    console.tron.log(form);
+    
     const { data: res } = yield call(api.post, "/user", form);
 
     if (res.error) {

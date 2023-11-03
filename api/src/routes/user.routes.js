@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
         const nameParts = file.name.split(".");
         const fileName = `${userId}.${nameParts[nameParts.length - 1]}`;
         foto = `user/${fileName}`;
-
+        console.log(foto)
         const response = await aws.uploadToS3(file, foto);
 
         if (response.error) {

@@ -18,7 +18,7 @@ const Login = () => {
   const [loadingState, setLoadingState] = useState(true);
 
   const getLoggedState = async () => {
-    await AsyncStorage.clear();
+    //await AsyncStorage.clear();
     const user = await AsyncStorage.getItem("@user");
 
     if (!user) {

@@ -26,7 +26,7 @@ export default {
     return hex + alphas[alpha];
   },
   AWS: {
-    bucketURL: 'https://money-runners.s3.amazonaws.com',
+    bucketURL: 'https://app-salao-img.s3.sa-east-1.amazonaws.com',
   },
   getMimeType: (name) => {
     const types = {

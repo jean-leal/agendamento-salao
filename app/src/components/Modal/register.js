@@ -46,8 +46,8 @@ const ModalRegister = () => {
           <Title color="light">Informe seus dados</Title>
           <Spacer />
           <Uploader
-            image={userForm.foto}
-            callback={(photo) => setUser({ foto: photo?.[0].uri })}
+            image={userForm.foto?.uri}
+            callback={(foto) => setUser({ foto : foto[0] })}
           />
           <Spacer />
           <TextInput
