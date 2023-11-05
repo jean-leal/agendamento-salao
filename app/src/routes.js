@@ -8,7 +8,8 @@ import {navigationRef} from "./services/navigation"
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Agendamento from "./pages/Agendamento"
+import Agendamento from "./pages/Agendamento";
+import EncontrarSalao from "./pages/EncontrarSalao";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +18,7 @@ const Routes = () => {
     <>
       <StatusBar backgroundColor={colors.dark}/>  
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="EncontrarSalao">
           <Stack.Screen 
             options={{headerShown: false}}
             name="Login"
@@ -32,6 +33,11 @@ const Routes = () => {
             options={{headerShown: false}}
             name="Agendamento"
             component={Agendamento}
+            />
+            <Stack.Screen 
+            options={{headerShown: false}}
+            name="EncontrarSalao"
+            component={EncontrarSalao}
             />
         </Stack.Navigator>
       </NavigationContainer>

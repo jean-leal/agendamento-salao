@@ -155,7 +155,7 @@ export const TextInput = styled(TextInputPaper).attrs((props) => ({
   theme: {
     colors: {
       placeholder: util.toAlpha(props.theme.muted, 30),
-      background: props.theme.dark,
+      background: props.theme.light,
       primary: props.theme.light,
       text: props.theme.light,
     },

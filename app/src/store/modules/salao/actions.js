@@ -1,7 +1,16 @@
 import types from './types';
 
-export function getSalao() {
-  return {type: types.GET_SALAO};
+export function getSalao(salaoId) {
+  return {type: types.GET_SALAO, salaoId};
+}
+
+export function allSaloes() {
+  return { type: types.ALL_SALOES}
+}
+
+
+export function updateAllSaloes(saloes) {
+  return {type: types.UPDATE_ALL_SALOES, saloes};
 }
 
 export function updateSalao(salao) {

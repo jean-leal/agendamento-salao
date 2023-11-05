@@ -15,6 +15,19 @@ router.post('/', async (req, res)=>{
   }
 });
 
+router.get('/', async (req, res)=>{
+  try{
+    const saloes = await Salao.find({
+      status: {$ne: 'E'},
+    });
+    res.json({
+      saloes: saloes
+    })
+  } catch (err) {
+    res.json({error: true, message: err.message});
+  }
+});
+
 router.get('/servicos/:salaoId', async (req, res) =>{
   try{
     const {salaoId} = req.params;

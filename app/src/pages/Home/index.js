@@ -14,10 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { colors } from "../../styles/theme.json";
 import util from "../../util";
+import { replace } from "../../services/navigation";
 
 const Home = () => {
+  const { user } = useSelector(state => state.app);
 
-  const { user } = useSelector(state => state.app)
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView background="dark">
@@ -35,7 +36,7 @@ const Home = () => {
             spacing="20px 0 0 "
           >
             <Cover
-              image ={`${util.AWS.bucketURL}/${user.foto}`}
+              image={`${util.AWS.bucketURL}/${user.foto}`}
               width="100px"
               height="100px"
               circle
@@ -46,16 +47,16 @@ const Home = () => {
               <Text color="light">{user.email}</Text>
             </Box>
           </Box>
-            <Touchable
-              rounded="5px"
-              spacing="10px 0 0 "
-              hasPadding
-              background="success"   
-              justify="center"           
-            >
-              <Text color="dark">Novo agendamento</Text>
-            </Touchable>
-          
+          <Touchable
+            rounded="5px"
+            spacing="10px 0 0 "
+            hasPadding
+            background="success"
+            justify="center"
+            onPress={() => replace('EncontrarSalao')}
+          >
+            <Text color="dark">Novo agendamento</Text>
+          </Touchable>
         </GradientView>
       </ScrollView>
     </GestureHandlerRootView>

@@ -25,9 +25,9 @@ const ModalHeader = () => {
         start={{x: 0, y:0}}
         end={{x:1, y:0}}
         >
-        <Box row>
-        <Text>
-          <Touchable hasPadding onPress={press}>
+        <Box row width="100%" >
+        <Text >
+          <Touchable hasPadding onPress={press} >
           <Icon name="chevron-left" color={theme.colors.light} size={30}/>
           <View style={{marginLeft: 20}}>
             <Text color="light">Finalizar Agendamento</Text>

@@ -23,6 +23,7 @@ const Header = () => {
           colors={['#21232f33', '#21232fe6']}
           hasPadding
           justify="flex-end"
+         
         >
           <Badge background={salao.isOpened ? 'success' : 'danger'}>{salao.isOpened ? "ABERTO" : "FECHADO"}</Badge>
           <Title color='light'>{salao.nome}</Title>

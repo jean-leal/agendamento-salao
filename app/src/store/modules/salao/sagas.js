@@ -4,12 +4,28 @@ import moment from 'moment';
 import api from "../../../services/api";
 import consts from '../../../consts';
 import types from './types';
-import { updateSalao, updateServicos, updateAgenda, updateColaboradores, updateAgendamento, updateForm } from './actions';
+import { updateSalao, updateServicos, updateAgenda, updateColaboradores, updateAgendamento, updateForm, updateAllSaloes } from './actions';
 import util from '../../../util';
 
-export function* getSalao(){
+export function* allSaloes(){
+
   try {
-    const { data: res} = yield call(api.get, `/salao/${consts.salaoId}`)
+    const { data: res} = yield call(api.get, `/salao`)
+    if (res.error) {
+      alert(res.message)
+      return false;
+    }
+
+    yield put(updateAllSaloes(res.saloes))
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+export function* getSalao(salao){
+  try {
+    const { data: res} = yield call(api.get, `/salao/${salao.salaoId}`);
+    
     if (res.error) {
       alert(res.message)
       return false;
@@ -88,5 +104,6 @@ export default all([
   takeLatest(types.GET_SALAO, getSalao),
   takeLatest(types.ALL_SERVICOS, allServicos),
   takeLatest(types.FILTER_AGENDA, filterAgenda),
-  takeLatest(types.SAVE_AGENDAMENTO, saveAgendamento)
+  takeLatest(types.SAVE_AGENDAMENTO, saveAgendamento),
+  takeLatest(types.ALL_SALOES, allSaloes)
 ]);

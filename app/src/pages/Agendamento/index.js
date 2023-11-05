@@ -19,12 +19,11 @@ const Agendamento = () => {
     }): servicos
 
   useEffect(() =>{
-    dispatch(getSalao());
     dispatch(allServicos());
   }, [])
 
  return (
-  <GestureHandlerRootView>
+  <GestureHandlerRootView style={{ flex: 1 }}>
     <FlatList
     ListHeaderComponent={Header} 
     data={finalServicos}

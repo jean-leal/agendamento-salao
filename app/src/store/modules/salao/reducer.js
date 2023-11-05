@@ -4,6 +4,7 @@ import consts from '../../../consts';
 import * as _ from 'lodash'
 
 const INITIAL_STATE = {
+  saloes: [],
   salao: {},
   servicos: [],
   agenda: [], 
@@ -34,6 +35,11 @@ function salao(state = INITIAL_STATE, action) {
     case types.UPDATE_SERVICOS: {
       return produce(state, (draft) => {
         draft.servicos = action.servicos;
+      })
+    }
+    case types.UPDATE_ALL_SALOES: {
+      return produce(state, (draft) => {
+        draft.saloes = [ ...action.saloes];
       })
     }
     case types.UPDATE_FORM: {
