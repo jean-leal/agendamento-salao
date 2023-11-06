@@ -6,6 +6,7 @@ import consts from '../../../consts';
 import types from './types';
 import { updateSalao, updateServicos, updateAgenda, updateColaboradores, updateAgendamento, updateForm, updateAllSaloes } from './actions';
 import util from '../../../util';
+import { replace } from '../../../services/navigation';
 
 export function* allSaloes(){
 
@@ -31,7 +32,8 @@ export function* getSalao(salao){
       return false;
     }
 
-    yield put(updateSalao(res.salao))
+    yield put(updateSalao(res.salao));
+    yield put(updateAgendamento({ salaoId: res.salao._id }));
   } catch (err) {
     alert(err.message);
   }
@@ -53,7 +55,8 @@ export function* allServicos(){
 
 export function* filterAgenda(){
   try {
-    const { agendamento } = yield select((state) => state.salao);
+    const { agendamento, agenda} = yield select((state) => state.salao);
+
 
     const { data: res} = yield call(api.post, `/agendamento/dias-disponiveis/`, {
       ...agendamento,
@@ -64,13 +67,15 @@ export function* filterAgenda(){
       return false;
     }
 
+    yield put(updateAgenda(res.agenda));
+    yield put(updateColaboradores(res.colaboradores));
+
     const {
       horariosDisponiveis, 
       data,
       colaboradorId} = yield call(util.selectAgendamento, res.agenda)
 
-    yield put(updateAgenda(res.agenda))
-    yield put(updateColaboradores(res.colaboradores))
+    console.tron.log(horariosDisponiveis, data, colaboradorId)
     yield put(updateAgendamento({
       data: moment(`${data}T${horariosDisponiveis[0][0]}`).format(),
       colaboradorId
@@ -95,6 +100,7 @@ export function* saveAgendamento(){
 
     yield put(updateForm({agendamentoLoading: false}))
     alert("agendado com sucesso!")
+    replace('Home');
   } catch (err) {
     alert(err.message);
   }

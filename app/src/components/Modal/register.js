@@ -43,7 +43,7 @@ const ModalRegister = () => {
     <>
       <Modalize ref={modalRef} adjustToContentHeight>
         <ScrollView style={{ padding: 20 }} background="dark" align="center">
-          <Title color="light">Informe seus dados</Title>
+          <Title color="light" align="center">Informe seus dados</Title>
           <Spacer />
           <Uploader
             image={userForm.foto?.uri}

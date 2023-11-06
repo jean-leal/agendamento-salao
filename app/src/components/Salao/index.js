@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Box, Touchable, Cover, Button } from "../../styles/index";
+import { Text, Box, Touchable, Cover } from "../../styles/index";
 
 import { useDispatch } from "react-redux";
 import { getSalao } from "../../store/modules/salao/actions";

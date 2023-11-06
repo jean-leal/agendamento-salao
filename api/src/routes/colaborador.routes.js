@@ -119,7 +119,7 @@ router.post('/filter', async (req, res) =>{
 
 router.get('/salao/:salaoId', async (req, res) =>{
   try {
-    
+    console.log("chegou aqui")
     const {salaoId} = req.params;
     let listaColaboradores = [] ;
 
@@ -142,7 +142,7 @@ router.get('/salao/:salaoId', async (req, res) =>{
         especialidades: especialidades.map(especialidade => ( especialidade.servicoId ))
       })
     }
-
+    
     res.json({
       error: false,
       colaboradores: listaColaboradores.map((vinculo) =>({

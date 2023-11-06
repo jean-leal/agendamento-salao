@@ -1,6 +1,7 @@
 import { takeLatest, all, call, put, select, take } from "redux-saga/effects";
 import types from "./types";
 import { setForm, reset, setReducer } from "./actions";
+import { updateAgendamento } from "../salao/actions";
 import { Alert } from "react-native";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -25,6 +26,7 @@ export function* loginUser() {
    
     yield call(AsyncStorage.setItem, '@user', JSON.stringify(res.user));
     yield put(setReducer('user', res.user));
+    yield put(updateAgendamento({ clienteId: res.user._id }));
     yield put(reset('userForm'));
     yield call(modalLoginRef?.current?.close);
     yield call(replace, 'Home');
@@ -56,10 +58,6 @@ export function* saveUser() {
     form.append("numero", userForm?.numero);
     form.append("cidade", userForm?.cidade);
 
-    //const nameParts = userForm?.foto.split(".");
-    //const extension = nameParts.pop();
-    //const name = new Date().getTime() + nameParts.pop();
-console.tron.log(userForm)
     form.append("foto", {
       name: new Date().getTime() + '.' + util.getMimeType(userForm?.foto?.uri),
       type: `image/${util.getMimeType(userForm?.foto?.uri)}`,

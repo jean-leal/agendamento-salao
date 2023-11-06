@@ -10,8 +10,8 @@ const INITIAL_STATE = {
   agenda: [], 
   colaboradores: [],
   agendamento: {
-    clienteId: consts.clienteId,
-    salaoId: consts.salaoId,
+    clienteId: null,
+    salaoId: null,
     servicoId: null,
     colaboradorId: null,
     data:null
@@ -27,6 +27,10 @@ const INITIAL_STATE = {
 
 function salao(state = INITIAL_STATE, action) {
   switch(action.type) {
+    case types.SET_REDUCER: {
+      return produce(state, (draft) => {
+        draft[action.key] = action.payload
+    })}
     case types.UPDATE_SALAO: {
       return produce(state, (draft) => {
         draft.salao = {...draft.salao, ...action.salao};

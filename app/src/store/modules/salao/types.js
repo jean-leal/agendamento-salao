@@ -1,5 +1,6 @@
 const types = {
   GET_SALAO: '@salao/GET',
+  SET_REDUCER: '@app/SET_REDUCER',
   UPDATE_SALAO: '@salao/UPDATE',
   ALL_SERVICOS: '@salao/ALL_SERVICOS',
   ALL_SALOES: '@salao/ALL_SALOES',

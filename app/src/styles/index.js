@@ -147,17 +147,17 @@ export const Button = styled(ButtonPaper).attrs((props) => ({
   },
 }))``;
 
-export const TextInput = styled(TextInputPaper).attrs((props) => ({
-  mode: "outlined",
-  outlineColor: props.theme.muted,
-  underlineColor: props.theme.muted,
-  selectionColor: props.theme.muted,
+export const TextInput = styled(TextInputPaper).attrs(({ theme }) => ({
+  mode: 'outlined',
+  outlineColor: theme.muted,
+  underlineColor: theme.muted,
+  selectionColor: theme.muted,
   theme: {
     colors: {
-      placeholder: util.toAlpha(props.theme.muted, 30),
-      background: props.theme.light,
-      primary: props.theme.light,
-      text: props.theme.light,
+      text: theme.light,
+      primary: theme.light,
+      background: theme.dark,
+      placeholder: theme.muted,
     },
   },
 }))`

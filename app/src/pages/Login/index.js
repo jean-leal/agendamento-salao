@@ -36,8 +36,8 @@ const Login = () => {
 
   return (
     <>
-      <GestureHandlerRootView>
-        <View height="100%" background="dark">
+      <GestureHandlerRootView >
+        <View height="100%">
           <Box hasPadding background="dark" justify="center" align="center">
             <Cover
               source={logoApp}

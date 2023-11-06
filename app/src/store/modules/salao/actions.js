@@ -8,6 +8,9 @@ export function allSaloes() {
   return { type: types.ALL_SALOES}
 }
 
+export function setReducer(key, payload){
+  return { type: types.SET_REDUCER, key, payload }
+}
 
 export function updateAllSaloes(saloes) {
   return {type: types.UPDATE_ALL_SALOES, saloes};

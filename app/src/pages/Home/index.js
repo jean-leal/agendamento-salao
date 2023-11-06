@@ -20,7 +20,7 @@ const Home = () => {
   const { user } = useSelector(state => state.app);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView>
       <ScrollView background="dark">
         <GradientView
           end={{ x: 0, y: 1 }}

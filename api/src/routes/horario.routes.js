@@ -63,6 +63,7 @@ router.post('/colaboradores', async (req, res) =>{
         label: vinculo.colaboradorId.nome,
         value: vinculo.colaboradorId._id
       }))
+
     res.json({
       error: false, listaColaboradores
     })
