@@ -36,15 +36,15 @@ const Login = () => {
 
   return (
     <>
-      <GestureHandlerRootView >
+    
         <View height="100%">
           <Box hasPadding background="dark" justify="center" align="center">
             <Cover
               source={logoApp}
-              borderRadius="circle"
+              circle
               width={"250px"}
               height={"250px"}
-              circle
+             
             />
             <Spacer size="100px" />
 
@@ -88,7 +88,6 @@ const Login = () => {
           <ModalLogin />
           <ModalRegister />
         </View>
-      </GestureHandlerRootView>
     </>
   );
 };

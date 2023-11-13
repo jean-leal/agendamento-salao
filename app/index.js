@@ -1,11 +1,11 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
-import {ThemeProvider} from 'styled-components/native'
+import { ThemeProvider } from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper';
-import {Provider as StoreProvider} from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 
-import {colors} from './src/styles/theme.json';
+import { colors } from './src/styles/theme.json';
 
 import {
   useFonts,
@@ -22,6 +22,7 @@ import {
 import store from './src/store';
 
 import Routes from './src/routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const App = () => {
 
@@ -37,19 +38,22 @@ const App = () => {
   });
 
   if (!fontsLoaded) {
-    
+
     return null;
   }
 
   return (
-    <StoreProvider store={store}>
-      <ThemeProvider theme={colors}>
-        <PaperProvider>        
-          <Routes/>         
-        </PaperProvider>
-      </ThemeProvider>
-    </StoreProvider>
-    
+    <GestureHandlerRootView style={{flex:1}}>
+      <StoreProvider store={store}>
+        <ThemeProvider theme={colors}>
+          <PaperProvider>
+            <Routes />
+          </PaperProvider>
+        </ThemeProvider>
+      </StoreProvider>
+    </GestureHandlerRootView>
+
+
   )
 }
 

@@ -14,8 +14,6 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ScrollView as ScrollViewComponent } from "react-native-gesture-handler";
 
-import util from "../util";
-
 export const Box = styled.View`
   flex: 1;
   flex-wrap: ${(props) => props.wrap || "nowrap"};
@@ -152,6 +150,7 @@ export const TextInput = styled(TextInputPaper).attrs(({ theme }) => ({
   outlineColor: theme.muted,
   underlineColor: theme.muted,
   selectionColor: theme.muted,
+  textColor:theme.light,
   theme: {
     colors: {
       text: theme.light,

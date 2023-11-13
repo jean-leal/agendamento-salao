@@ -1,9 +1,10 @@
 import React, { useMemo, useRef, useCallback } from "react";
-import { StyleSheet, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import moment from "moment";
 import { ActivityIndicator } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { ScrollView } from "../../styles";
 
 import Resume from "./resume";
 import DateTimePicker from "./dateTime"
@@ -44,7 +45,7 @@ const ModalAgendamento = () => {
       snapPoints={snapPoints}
       onChange={handleSheetChanges}
     >
-      <>
+     
         <ScrollView
           style={{ backgroundColor: "#fff" }}
           stickyHeaderIndices={[0]}
@@ -103,7 +104,6 @@ const ModalAgendamento = () => {
           horaSelecionada={horaSelecionada}
           colaboradoresDia={colaboradoresDia}
         />
-      </>
     </BottomSheet>
   );
 };
