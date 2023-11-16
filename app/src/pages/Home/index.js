@@ -8,7 +8,6 @@ import {
   Title,
   Touchable,
 } from "../../styles";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { useDispatch, useSelector } from "react-redux";
 
