@@ -88,7 +88,7 @@ export const Cover = styled.ImageBackground.attrs((props) =>
   width: ${(props) => props.width || "100"};
   height: ${(props) => props.height || "100"};
   margin: ${(props) => props.spacing || "0 10px 0 0 "};
-  border-radius: ${(props) => (props.circle ? props.width : "3px")};
+  border-radius: ${(props) => (props.circle ? props.width : "5px")};
   border: ${(props) => props.border || "none"};
   overflow: hidden;
   background-color: ${({ theme, transparent }) =>
