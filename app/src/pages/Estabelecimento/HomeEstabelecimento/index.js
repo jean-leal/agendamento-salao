@@ -8,20 +8,19 @@ import {
   Title,
   Touchable,
   Spacer,
-} from "../../styles";
+} from "../../../styles";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { colors } from "../../styles/theme.json";
-import util from "../../util";
-import theme from "../../styles/theme.json"
-import { replace } from "../../services/navigation";
+import { colors } from "../../../styles/theme.json";
+import util from "../../../util";
+import theme from "../../../styles/theme.json"
+import { replace } from "../../../services/navigation";
 
-const Home = () => {
+const HomeEstabelecimento = () => {
   const { user } = useSelector(state => state.app);
 
   return (
-
     <ScrollView background="light">
       <GradientView
         end={{ x: 0, y: 1 }}
@@ -38,8 +37,8 @@ const Home = () => {
         >
           <Cover
             image={`${util.AWS.bucketURL}/${user.foto}`}
-            width="80px"
-            height="80px"
+            width="70px"
+            height="70px"
             circle
           />
 
@@ -48,20 +47,10 @@ const Home = () => {
             <Text color="light">{user.email}</Text>
           </Box>
         </Box>
-        <Touchable
-          rounded="5px"
-          spacing="10px 0 0 "
-          hasPadding
-          background="success"
-          justify="center"
-          onPress={() => replace('EncontrarSalao')}
-        >
-          <Text color="dark">Novo agendamento</Text>
-        </Touchable>
       </GradientView>
       <Box hasPadding removePaddingTop align="center" spacing="10px 0px 0px 0px" background={util.toAlpha(theme.colors.muted, 5)}>
         <Box  align="center">
-        <Title small color="dark" hasPadding>Agendamento</Title>
+        <Title small   color="dark" hasPadding>Agendamento</Title>
 
         </Box>
         <Box row >
@@ -83,4 +72,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeEstabelecimento;

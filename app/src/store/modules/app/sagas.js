@@ -29,7 +29,13 @@ export function* loginUser() {
     yield put(updateAgendamento({ clienteId: res.user._id }));
     yield put(reset('userForm'));
     yield call(modalLoginRef?.current?.close);
-    yield call(replace, 'Home');
+  
+    if (res.user.tipo === "usuario"){
+      yield call(replace, 'Home');
+    } else {
+      yield call(replace, 'HomeEstabelecimento');
+    }
+
     
   } catch (err) {
     yield call(Alert.alert, "Erro interno", err.message);
@@ -46,7 +52,7 @@ export function* saveUser() {
     const form = new FormData();
     form.append("nome", userForm?.nome);
     form.append("email", userForm?.email);
-    form.append("cpf", userForm?.cpf.match(/\d+/g).join(""));
+    form.append("tipo", userForm?.tipo);
     form.append(
       "dataNascimento",
       moment(userForm?.dataNascimento, "DD/MM/YYYY").format("YYYY/MM/DD")

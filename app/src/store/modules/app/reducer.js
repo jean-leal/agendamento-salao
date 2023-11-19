@@ -3,7 +3,9 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   user: {},
-  userForm: {},
+  userForm: {
+    tipo: "usuario"
+  },
   form: {
     disabled: false,
     loading: false,

@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Agendamento from "./pages/Agendamento";
 import EncontrarSalao from "./pages/EncontrarSalao";
+import HomeEstabelecimento from "./pages/Estabelecimento/HomeEstabelecimento";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,11 +20,13 @@ const Routes = () => {
       <StatusBar backgroundColor={colors.dark}/>  
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName="Login">
+          {/* ROTAS DE TODOS */}
           <Stack.Screen 
             options={{headerShown: false}}
             name="Login"
             component={Login}
             />
+            {/* ROTAS DE USUARIO */}
           <Stack.Screen 
             options={{headerShown: false}}
             name="Home"
@@ -38,6 +41,12 @@ const Routes = () => {
             options={{headerShown: false}}
             name="EncontrarSalao"
             component={EncontrarSalao}
+            />
+            {/* ROTAS DE ESTABELECIMENTO */}
+            <Stack.Screen 
+            options={{headerShown: false}}
+            name="HomeEstabelecimento"
+            component={HomeEstabelecimento}
             />
         </Stack.Navigator>
       </NavigationContainer>

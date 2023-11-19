@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import { Modalize } from "react-native-modalize";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
+import { Checkbox } from 'react-native-paper';
 
 import {
   Box,
@@ -31,14 +32,15 @@ const ModalRegister = () => {
 
   const requestRegister = async () => {
     try {
-      
+
       await RegisterScheme.validate(userForm);
       dispatch(saveUserAction());
-    } catch ({errors}) {
+    } catch ({ errors }) {
       Alert.alert(errors[0], "Corrija o erro antes de continuar.");
     }
   };
 
+  const [checked, setChecked] = React.useState(false);
   return (
     <>
       <Modalize ref={modalRef} adjustToContentHeight>
@@ -47,8 +49,25 @@ const ModalRegister = () => {
           <Spacer />
           <Uploader
             image={userForm.foto?.uri}
-            callback={(foto) => setUser({ foto : foto[0] })}
+            callback={(foto) => setUser({ foto: foto[0] })}
           />
+          <Spacer />
+          <Box row align="center" justify="center">
+            <Checkbox.Item
+              label="Usuário"
+              status={userForm.tipo === 'usuario' ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setUser({ tipo: "usuario" });
+              }}
+            />
+            <Checkbox.Item
+              label="Estabelecimento"
+              status={userForm.tipo === 'estabelecimento' ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setUser({ tipo: "estabelecimento" });
+              }}
+            />
+          </Box>
           <Spacer />
           <TextInput
             label={"E-mail"}
@@ -67,17 +86,6 @@ const ModalRegister = () => {
             value={userForm?.nome}
             onChangeText={(nome) => {
               setUser({ nome });
-            }}
-          />
-          <Spacer />
-          <TextInputMask
-            type={"cpf"}
-            label={"CPF"}
-            placeholder={"Digite seu CPF"}
-            value={userForm?.cpf}
-            disabled={form?.saving}
-            onChangeText={(cpf) => {
-              setUser({ cpf });
             }}
           />
           <Spacer />

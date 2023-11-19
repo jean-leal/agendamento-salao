@@ -31,7 +31,7 @@ export function* getSalao(salao){
       alert(res.message)
       return false;
     }
-
+    console.tron.log(res)
     yield put(updateSalao(res.salao));
     yield put(updateAgendamento({ salaoId: res.salao._id }));
   } catch (err) {
