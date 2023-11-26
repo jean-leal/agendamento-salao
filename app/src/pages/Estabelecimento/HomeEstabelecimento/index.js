@@ -16,6 +16,7 @@ import { colors } from "../../../styles/theme.json";
 import util from "../../../util";
 import theme from "../../../styles/theme.json"
 import { replace } from "../../../services/navigation";
+import AgendamentoDia from "../../../components/AgendamentoDia";
 
 const HomeEstabelecimento = () => {
   const { user } = useSelector(state => state.app);
@@ -48,25 +49,9 @@ const HomeEstabelecimento = () => {
           </Box>
         </Box>
       </GradientView>
-      <Box hasPadding removePaddingTop align="center" spacing="10px 0px 0px 0px" background={util.toAlpha(theme.colors.muted, 5)}>
-        <Box  align="center">
-        <Title small   color="dark" hasPadding>Agendamento</Title>
-
-        </Box>
-        <Box row >
-          <Cover
-            image={`${util.AWS.bucketURL}/${user.foto}`}
-            width="100px"
-            height="100px"
-          />
-          <Box spacing="0px 0px 0px 10px">
-            <Title color="dark" small>Salao Teste</Title>
-            <Text color="dark">Rua Armando Cerci, n° 606</Text>
-            <Text color="dark">Fone: 44 998955740</Text>
-            <Spacer/>
-            <Text color="success" bold>10/12/2023 - 12:00 h </Text>            
-          </Box>
-        </Box>
+      <Box hasPadding removePaddingTop align="flex-start" spacing="10px 0px 0px 0px" background="light">
+        
+        <AgendamentoDia/>
       </Box>
     </ScrollView>
   );
