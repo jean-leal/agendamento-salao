@@ -33,7 +33,7 @@ export function* loginUser() {
     if (res.user.tipo === "usuario"){
       yield call(replace, 'Home');
     } else {
-      yield call(replace, 'HomeEstabelecimento');
+      yield call(replace, 'HomeTabsEstabelecimento');
     }
 
     

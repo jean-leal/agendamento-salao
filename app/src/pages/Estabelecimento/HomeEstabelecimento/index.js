@@ -17,40 +17,13 @@ import util from "../../../util";
 import theme from "../../../styles/theme.json"
 import { replace } from "../../../services/navigation";
 import AgendamentoDia from "../../../components/AgendamentoDia";
+import HeaderEsabelecimento from "../../../components/HeaderEstabelecimentos";
 
 const HomeEstabelecimento = () => {
-  const { user } = useSelector(state => state.app);
-
   return (
     <ScrollView background="light">
-      <GradientView
-        end={{ x: 0, y: 1 }}
-        style={{ height: "100%" }}
-        colors={[colors.primary, colors.dark]}
-        hasPadding
-      >
-        <Box
-          hasPadding
-          row
-          align="center"
-          justify="center"
-          spacing="0px 0 0 "
-        >
-          <Cover
-            image={`${util.AWS.bucketURL}/${user.foto}`}
-            width="70px"
-            height="70px"
-            circle
-          />
-
-          <Box align="center" justify="center">
-            <Title color="light" small>{user.nome}</Title>
-            <Text color="light">{user.email}</Text>
-          </Box>
-        </Box>
-      </GradientView>
-      <Box hasPadding removePaddingTop align="flex-start" spacing="10px 0px 0px 0px" background="light">
-        
+      <HeaderEsabelecimento/>
+      <Box  align="flex-start" background="light">        
         <AgendamentoDia/>
       </Box>
     </ScrollView>

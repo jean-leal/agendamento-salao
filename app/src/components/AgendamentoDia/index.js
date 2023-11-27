@@ -14,11 +14,11 @@ const AgendamentoDia = () => {
 
   return (
     <>
-      <Text bold color="dark" hasPadding>
+      <Text bold color="dark" hasPadding >
         Agendamentos do dia
       </Text>
       <FlatList
-        data={["1", "2"]}
+        data={["1", "2", "1", "2", "1", "2"]}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
