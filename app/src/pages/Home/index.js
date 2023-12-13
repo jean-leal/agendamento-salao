@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   GradientView,
@@ -16,9 +16,16 @@ import { colors } from "../../styles/theme.json";
 import util from "../../util";
 import theme from "../../styles/theme.json"
 import { replace } from "../../services/navigation";
+import { allAgendamentos } from "../../store/modules/app/actions";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector(state => state.app);
+
+  useEffect(() => {
+    dispatch(allAgendamentos());
+  }, [user]);
+
 
   return (
 

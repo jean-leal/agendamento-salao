@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

@@ -87,7 +87,25 @@ export function* saveUser() {
   }
 }
 
+export function* allAgendamentos() {
+const { user } = yield select((state) => state.app);
+  
+  try {
+    const { data: res} = yield call(api.get, `/agendamento/agendamentos/${user?._id}`);
+
+    if (res.error) {
+      throw new Error(res.message);
+    }
+   
+    yield put(setReducer('userAgendamentos', res?.agendamentos));
+    
+  } catch (err) {
+    yield call(Alert.alert, "Erro interno", err.message);
+}
+}
+
 export default all([
   takeLatest(types.LOGIN_USER, loginUser),
   takeLatest(types.SAVE_USER, saveUser),
+  takeLatest(types.ALL_AGENDAMENTOS, allAgendamentos),
 ]);

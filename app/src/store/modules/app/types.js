@@ -5,6 +5,7 @@ const types = {
   SAVE_USER: '@app/SAVE_USER',
   SET_FORM: '@app/SET_FORM', 
   RESET: '@app/RESET', 
+  ALL_AGENDAMENTOS: '@app/ALL_AGENDAMENTOS',
 }
 
 export default types;

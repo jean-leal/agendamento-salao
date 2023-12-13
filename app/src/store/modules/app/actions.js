@@ -23,3 +23,7 @@ export function reset(key){
 export function saveUser() {
   return { type: types.SAVE_USER };
 }
+
+export function allAgendamentos(){ 
+  return {type: types.ALL_AGENDAMENTOS };
+}

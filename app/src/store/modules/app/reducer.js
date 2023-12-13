@@ -3,6 +3,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   user: {},
+  userAgendamentos: {},
   userForm: {
     tipo: "usuario"
   },
