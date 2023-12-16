@@ -84,7 +84,7 @@ const Routes = () => {
     <>
       <StatusBar backgroundColor={colors.dark} />
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator initialRouteName="login">
+        <Stack.Navigator initialRouteName="Login">
           {/* ROTAS DE TODOS */}
           <Stack.Screen
             options={{ headerShown: false }}

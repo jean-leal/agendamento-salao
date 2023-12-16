@@ -47,7 +47,16 @@ export const Touchable = styled(TouchableOpacity)`
   align-items: ${(props) => props.align || "flex-start"};
   width: ${(props) => props.width || "100%"};
   height: ${(props) => props.height || "auto"};
-  padding: ${(props) => (props.hasPadding ? "20px" : "0px")};
+  padding: ${(props) =>
+    props.hasPadding
+      ? !props.removePaddingBottom
+        ? "20px"
+        : "20px 20px 0 20px"
+      : "0px"};
+  padding-top: ${(props) =>
+    props.removePaddingTop ? "0" : props.hasPadding ? "20px" : "0px"};
+  padding-bottom: ${(props) =>
+    props.removePaddingBottom ? "0" : props.hasPadding ? "20px" : "0px"};
   margin: ${(props) => props.spacing || 0};
   border-radius: ${(props) => props.rounded || 0};
   border: ${(props) => props.border || "none"};
@@ -122,6 +131,7 @@ export const Badge = styled(BadgePaper)`
 export const Text = styled(TextPaper)`
   color: ${(props) => props.theme[props.color || "dark"]};
   font-size: ${(props) => (props.small ? "13px" : "17px")};
+  text-align: ${(props) => props.align || "left"};
   padding: ${(props) =>
     props.hasPadding
       ? !props.removePaddingBottom
@@ -132,7 +142,7 @@ export const Text = styled(TextPaper)`
     props.bold ? "Ubuntu_700Bold" : "Ubuntu_300Light"};
 `;
 
-export const Button = styled(ButtonPaper).attrs((props) => ({
+export const Button = styled(ButtonPaper).attrs((props) => ({  
   mode: props.mode || "contained",
   width: props.block ? "100%" : "auto",
   uppercase: false,

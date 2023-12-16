@@ -198,6 +198,7 @@ const ModalRegister = () => {
             disabled={form?.saving}
             loading={form?.saving}
             onPress={() => requestRegister()}
+            style={{ width: "100%", borderRadius: 5 }}
           >
             Enviar dados
           </Button>

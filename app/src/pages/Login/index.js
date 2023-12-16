@@ -56,6 +56,7 @@ const Login = () => {
                   block
                   background="light"
                   onPress={() => modalLoginRef?.current.open()}
+                  style={{ width: "100%", borderRadius: 5 }}
                 >
                   Entrar na minha conta
                 </Button>

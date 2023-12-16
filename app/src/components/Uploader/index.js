@@ -9,7 +9,7 @@ import util from "../../util";
 import { colors } from "../../styles/theme.json";
 
 
-const Uploader = ({ callback = () => {}, image = null }) => {
+const Uploader = ({ callback = () => { }, image = null }) => {
   const requestAccess = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -58,11 +58,15 @@ const Uploader = ({ callback = () => {}, image = null }) => {
             image={image}
             justify="flex-end"
             align="center"
-          ></Cover>
-          <Spacer/>
-          <Button background="light" onPress={() => pickImage()}>
-            Trocar imagem
-          </Button>
+          >
+            <Button
+              background="light"
+              onPress={() => pickImage()}
+              style={{ width: "100%", borderRadius: 5 }}
+            >
+              Trocar imagem
+            </Button>
+          </Cover>
         </>
       )}
       {!image && (
@@ -79,7 +83,10 @@ const Uploader = ({ callback = () => {}, image = null }) => {
           <Text color={"light"}>Clique para abrir a galeria</Text>
           <Spacer size="25px" />
 
-          <Button background="light" onPress={() => pickImage()}>
+          <Button
+            style={{ width: "100%", borderRadius: 5 }}
+            background="light"
+            onPress={() => pickImage()}>
             Abrir galeria
           </Button>
         </Box>

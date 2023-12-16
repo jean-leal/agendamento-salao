@@ -64,6 +64,7 @@ const ModalLogin = () => {
             disabled={form?.loading}
             loading={form?.loading}
             onPress={() => sendLogin()}
+            style={{ width: "100%", borderRadius: 5 }}
           >
             Fazer Login
           </Button>

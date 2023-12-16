@@ -17,16 +17,19 @@ import util from "../../util";
 import theme from "../../styles/theme.json"
 import { replace } from "../../services/navigation";
 import { allAgendamentos } from "../../store/modules/app/actions";
+import { FlatList } from "react-native-gesture-handler";
+
+import AgendamentosCliente from "../../components/AgendamentosCliente";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.app);
+  const { user, userAgendamentos } = useSelector(state => state.app);
+
+
 
   useEffect(() => {
     dispatch(allAgendamentos());
   }, [user]);
-
-
   return (
 
     <ScrollView background="light">
@@ -86,6 +89,12 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
+      <Text hasPadding bold> Ultimos Agendamentos</Text>
+      <FlatList
+        data={userAgendamentos}
+        renderItem={({item}) => <AgendamentosCliente agendamento={item}/> }
+        keyExtractor={item => item.id}
+      />
     </ScrollView>
   );
 };
